@@ -20,9 +20,14 @@ open class Aplicacao {
     fun ola() : String {
         return """
         <html>
-            <title>TicTacToe</title>
-            <script src="https://cdn.jsdelivr.net/npm/kotlin@1.5.21/kotlin.min.js"></script>
-            <script src="main.js"></script>
+            <head>
+                <meta charset="UTF-8">
+                <link rel="stylesheet" href="static/style.css">
+                <title>TicTacToe</title>
+                <script src="https://cdn.jsdelivr.net/npm/kotlin@1.5.21/kotlin.min.js"></script>
+                <script src="main.js"></script>
+            </head>
+            
             <body onload="main.jogar()">
 
                 <div id="status">
