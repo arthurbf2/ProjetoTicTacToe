@@ -17,7 +17,7 @@ fun jogar() {
         <html>
         <table>
                 <tr>
-                    <td><button value="0"></button></td>
+                    <td><button style="width: 150px;”>PUT SOME TEXT HERE!</button></td>
                     <td><button value="0"></button></td>
                     <td><button value="0"></button></td>
                 </tr>

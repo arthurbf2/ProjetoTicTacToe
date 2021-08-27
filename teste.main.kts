@@ -22,7 +22,7 @@ open class Aplicacao {
         <html>
             <head>
                 <meta charset="UTF-8">
-                <link rel="stylesheet" href="static/style.css">
+                <link rel="stylesheet" href="style.css">
                 <title>TicTacToe</title>
                 <script src="https://cdn.jsdelivr.net/npm/kotlin@1.5.21/kotlin.min.js"></script>
                 <script src="main.js"></script>
