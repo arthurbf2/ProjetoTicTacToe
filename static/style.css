@@ -1,5 +1,113 @@
-.botao-tabela{
-    color: orange;
-    width: 300px;
-    height: 300px;
+body{
+    background: lightgray;
+}
+
+header{
+    background: gray;
+    padding: 20px 0;
+}
+
+.titulo-principal{
+    text-align: center;
+    font-size: 5em;
+    margin: 1em 0;
+}
+
+main{
+    width: 940px;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.jogadores{
+    width: 700px;
+    margin: 2em auto;
+}
+
+.jogadores div{
+    padding: 0.5em;
+}
+
+.jogador1{
+
+}
+
+.jogador1::before{
+    content: "O";
+}
+
+.jogador2{
+    
+}
+
+.jogador2::before{
+    content: "X";
+}
+
+.opcoes{
+    margin: 5em auto;
+    text-align: center;
+}
+
+.botao{
+    padding: 2em 65px;
+    width: 350px;
+    background-color: orange;
+    border: none;
+    border-radius: 5px;
+    font-size: medium;
+}
+
+table{
+    margin: 0 auto;
+    border-style: none;
+}
+
+table button{
+    width: 100px;
+    height: 100px;
+    background-color: #FFFFFF;
+
+}
+
+table button:hover{
+    background-color:lightsteelblue;
+}
+
+#b00{
+    border-top: none;
+    border-left: none;
+}
+
+#b01{
+    border-top: none;
+}
+
+#b02{
+    border-top: none;
+    border-right: none;
+}
+
+#b10{
+    border-left: none;
+}
+
+#b11{}
+
+#b12{
+    border-right: none;
+}
+
+#b20{
+    border-bottom: none;
+    border-left: none;
+}
+
+#b21{
+    border-bottom: none;
+}
+
+#b22{
+    border-bottom: none;
+    border-right: none;
 }

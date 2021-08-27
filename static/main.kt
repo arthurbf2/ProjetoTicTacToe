@@ -17,19 +17,19 @@ fun jogar() {
         <html>
         <table>
                 <tr>
-                    <td><button style="width: 150px, height: 150px;"></button></td>
-                    <td><button value="0"></button></td>
-                    <td><button value="0"></button></td>
+                    <td><button id="b00">00</button></td>
+                    <td><button id="b01">01</button></td>
+                    <td><button id="b02">02</button></td>
                 </tr>
                 <tr>
-                    <td><button value="0"></button></td>
-                    <td><button value="0"></button></td>
-                    <td><button value="0"></button></td>
+                    <td><button id="b10">10</button></td>
+                    <td><button id="b11">11</button></td>
+                    <td><button id="b12">12</button></td>
                 </tr>
                 <tr>
-                    <td><button value="0"></button></td>
-                    <td><button value="0"></button></td>
-                    <td><button value="0"></button></td>
+                    <td><button id="b20">20</button></td>
+                    <td><button id="b21">21</button></td>
+                    <td><button id="b22">22</button></td>
                 </tr>
             </table>
         </html> 

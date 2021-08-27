@@ -16,30 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 open class Aplicacao {
 
 
-    @GetMapping("oi.html")
-    fun ola() : String {
-        return """
-        <html>
-            <head>
-                <meta charset="UTF-8">
-                <link rel="stylesheet" href="style.css">
-                <title>TicTacToe</title>
-                <script src="https://cdn.jsdelivr.net/npm/kotlin@1.5.21/kotlin.min.js"></script>
-                <script src="main.js"></script>
-            </head>
-            
-            <body onload="main.jogar()">
-
-                <div id="status">
-                </div>
-                <div id="tabuleiro">
-                </div>
-            </body>
-            
-        </html>
-        """
-    }
-
 }
 
 
