@@ -80,40 +80,59 @@ table button:hover{
     
 }
 
-#b00{
-    border-top: none;
+#b00, #boo:disabled{
+    border-style: solid;
+    border-color: black;
     border-left: none;
-}
-
-#b01{
     border-top: none;
 }
 
-#b02{
+#b01, #b01:disabled{
+    border-style: solid;
+    border-color: black;
+    border-top: none;
+}
+
+#b02, #b02:disabled{
+    border-style: solid;
+    border-color: black;
     border-top: none;
     border-right: none;
 }
 
-#b10{
+#b10, #b10:disabled{
+    border-style: solid;
+    border-color: black;
     border-left: none;
 }
 
-#b11{}
+#b11, #b11:disabled{
+    border-style: solid;
+    border-color: black;
+}
 
-#b12{
+#b12, #b12:disabled{
+    border-style: solid;
+    border-color: black;
     border-right: none;
 }
 
-#b20{
+#b20, #b20:disabled{
+    border-style: solid;
+    border-color: black;
     border-bottom: none;
     border-left: none;
 }
 
-#b21{
+#b21, #b21:disabled{
+    border-style: solid;
+    border-color: black;
     border-bottom: none;
 }
 
-#b22{
+#b22, #b22:disabled{
+    border-style: solid;
+    border-color: black;
     border-bottom: none;
     border-right: none;
 }
