@@ -35,17 +35,30 @@ fun jogar() {
         """
 }
 
-var testeglobal: Int = 1
+var testeglobal: Int = 1 // Sendo usada pra verificar a vez, depois trocar pelo nome do jogador
 
 @JsName("botaoPressionado")
 fun botaoPressionado(id:String){
-    val botao = document.getElementById(id)
-    if (botao != null)
+    val botao = document.getElementById(id) as HTMLButtonElement 
+    if (botao != null && botao.disabled == false)  // deixei a verificacao de nulo pq tava dando uns bugs
         if(testeglobal == 1){
             botao.innerHTML = "X"
+            botao.value = "1"
             testeglobal -= 1
+            botao.disabled = true // desabilitar o botão
         } else {
             botao.innerHTML = "O"
+            botao.value = "-1"
             testeglobal += 1
+            botao.disabled = true // desabilitar o botão 
         }
+    //verifica()
+}
+
+@JsName("verifica")
+fun verifica(){
+    //Hipótese: Atribuir o value dos botões à posição correspondente do tabuleiroArray, 
+    //e depois somar o valor das linhas, colunas e diagonais dele. Ou seja, se o valor
+    //de qualquer uma delas for 3, o jogador 1 vence, se for -3, o jogador 2 vence.
+    //talvez eu esteja complicando demais e baste passar o array direto
 }

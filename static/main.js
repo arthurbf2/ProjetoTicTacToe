@@ -3,6 +3,7 @@ if (typeof kotlin === 'undefined') {
 }var main = function (_, Kotlin) {
   'use strict';
   var println = Kotlin.kotlin.io.println_s8jyv4$;
+  var throwCCE = Kotlin.throwCCE;
   function jogar() {
     println('funfando');
     var tabuleiroArray = [new Int32Array([0, 0, 0]), new Int32Array([0, 0, 0]), new Int32Array([0, 0, 0])];
@@ -12,15 +13,22 @@ if (typeof kotlin === 'undefined') {
   }
   var testeglobal;
   function botaoPressionado(id) {
-    var botao = document.getElementById(id);
-    if (botao != null)
+    var tmp$;
+    var botao = Kotlin.isType(tmp$ = document.getElementById(id), HTMLButtonElement) ? tmp$ : throwCCE();
+    if (botao != null && botao.disabled === false)
       if (testeglobal === 1) {
         botao.innerHTML = 'X';
+        botao.value = '1';
         testeglobal = testeglobal - 1 | 0;
+        botao.disabled = true;
       } else {
         botao.innerHTML = 'O';
+        botao.value = '-1';
         testeglobal = testeglobal + 1 | 0;
+        botao.disabled = true;
       }
+  }
+  function verifica() {
   }
   _.jogar = jogar;
   Object.defineProperty(_, 'testeglobal', {
@@ -32,6 +40,7 @@ if (typeof kotlin === 'undefined') {
     }
   });
   _.botaoPressionado = botaoPressionado;
+  _.verifica = verifica;
   testeglobal = 1;
   Kotlin.defineModule('main', _);
   return _;
