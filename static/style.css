@@ -33,7 +33,7 @@ main{
 }
 
 .jogador1::before{
-    content: "O";
+    content: "X";
 }
 
 .jogador2{
@@ -41,7 +41,7 @@ main{
 }
 
 .jogador2::before{
-    content: "X";
+    content: "O";
 }
 
 .opcoes{
@@ -51,11 +51,15 @@ main{
 
 .botao{
     padding: 2em 65px;
-    width: 350px;
+    width: 360px;
     background-color: orange;
     border: none;
     border-radius: 5px;
     font-size: medium;
+}
+
+.botao:hover{
+    cursor: pointer;
 }
 
 table{
@@ -71,7 +75,9 @@ table button{
 }
 
 table button:hover{
-    background-color:lightsteelblue;
+    background-color: lightsteelblue;
+    /*background: lightsteelblue url('imagens/Círculo-PNG.png')*/
+    
 }
 
 #b00{
@@ -110,4 +116,36 @@ table button:hover{
 #b22{
     border-bottom: none;
     border-right: none;
+}
+
+.song-control{
+    margin: 2em;
+}
+
+.song-control button{
+    padding: 16px;
+    border-radius: 100% 100%;
+    border-style: none;
+}
+
+.song-control button:hover{
+    cursor: pointer;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.song-control button:first-child{
+    background: url(imagens/botao-play.png)
+}
+
+.song-control button:nth-child(2){
+    background: url(imagens/botao-de-pausa-de-video.png)
+}
+
+.song-control button:nth-child(3){
+    background: url(imagens/aumentar-volume.png)
+}
+
+.song-control button:nth-child(4){
+    background: url(imagens/diminuir-volume.png)
 }
