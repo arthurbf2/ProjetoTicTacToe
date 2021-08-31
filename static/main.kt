@@ -5,11 +5,7 @@ import org.w3c.dom.*
 @JsName("jogar")
 fun jogar() {
     println("funfando")
-    val tabuleiroArray: Array<IntArray> = arrayOf(
-        intArrayOf(0, 0, 0),
-        intArrayOf(0, 0, 0),
-        intArrayOf(0, 0, 0)
-    )
+    val board = arrayOf(arrayOf(0,0,0), arrayOf(0,0,0), arrayOf(0,0,0))
     val tabuleiro = document.getElementById("tabuleiro")
     if (tabuleiro!= null)
         tabuleiro.innerHTML = """
@@ -38,12 +34,13 @@ fun jogar() {
 var testeglobal: Int = 1 // Sendo usada pra verificar a vez, depois trocar pelo nome do jogador
 
 @JsName("botaoPressionado")
-fun botaoPressionado(id:String){
+fun botaoPressionado(id:String, board: Array<Array<Int>>){
     val botao = document.getElementById(id) as HTMLButtonElement 
     if (botao != null && botao.disabled == false)  // deixei a verificacao de nulo pq tava dando uns bugs
         if(testeglobal == 1){
             botao.innerHTML = "X"
-            botao.value = "1"
+            val s: String = id.substring(1)
+            
             testeglobal -= 1
             botao.disabled = true // desabilitar o botão
         } else {
