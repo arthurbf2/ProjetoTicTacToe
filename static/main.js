@@ -3,6 +3,8 @@ if (typeof kotlin === 'undefined') {
 }var main = function (_, Kotlin) {
   'use strict';
   var throwCCE = Kotlin.throwCCE;
+  var split = Kotlin.kotlin.text.split_o64adg$;
+  var toBoxedChar = Kotlin.toBoxedChar;
   var equals = Kotlin.equals;
   var board;
   function jogar() {
@@ -13,6 +15,12 @@ if (typeof kotlin === 'undefined') {
   var testeglobal;
   function botaoPressionado(id) {
     var tmp$;
+    var status = document.getElementById('status');
+    if (status != null)
+      if (testeglobal === 1)
+        status.innerHTML = 'Vez de jogador 2(O)';
+      else
+        status.innerHTML = 'Vez de jogador 1(X)';
     var botao = Kotlin.isType(tmp$ = document.getElementById(id), HTMLButtonElement) ? tmp$ : throwCCE();
     if (botao.disabled === false)
       if (testeglobal === 1) {
@@ -26,15 +34,25 @@ if (typeof kotlin === 'undefined') {
         testeglobal = testeglobal + 1 | 0;
         botao.disabled = true;
       }
-    var el = document.getElementById('tabuleiro');
+    var restart = document.getElementById('botaoRestart');
     if (verifica()) {
-      if (el != null)
-        el.innerHTML = 'cabou';
+      desabilitaBts(0);
+      if (status != null) {
+        var s = split(status.innerHTML, Kotlin.charArrayOf(40));
+        if (equals(toBoxedChar(s.get_za3lpa$(1).charCodeAt(0)), toBoxedChar(88)))
+          status.innerHTML = 'O jogador 2 venceu!';
+        else
+          status.innerHTML = 'O jogador 1 venceu!';
+      }if (restart != null)
+        restart.innerHTML = '\n                <button onclick="window.location.reload()">Jogar novamente<\/button>\n            ';
     } else {
-      if (verificaVelha(0))
-        if (el != null)
-          el.innerHTML = 'cabou';
-    }
+      if (verificaVelha(0)) {
+        desabilitaBts(0);
+        if (status != null)
+          status.innerHTML = 'Empate!';
+        if (restart != null)
+          restart.innerHTML = '\n                    <button onclick="window.location.reload()">Jogar novamente<\/button>\n                ';
+      }}
   }
   function verifica() {
     if (verificaDiagonais())
@@ -81,6 +99,14 @@ if (typeof kotlin === 'undefined') {
       return verificaVelha(i + 1 | 0);
     }return true;
   }
+  function desabilitaBts(i) {
+    var tmp$;
+    if (i < 9) {
+      var doc = Kotlin.isType(tmp$ = document.getElementsByClassName('bts').item(i), HTMLButtonElement) ? tmp$ : throwCCE();
+      if (!doc.disabled)
+        doc.disabled = true;
+      desabilitaBts(i + 1 | 0);
+    }}
   Object.defineProperty(_, 'board', {
     get: function () {
       return board;
@@ -101,6 +127,7 @@ if (typeof kotlin === 'undefined') {
   _.verificaColunas = verificaColunas;
   _.verificaDiagonais = verificaDiagonais;
   _.verificaVelha = verificaVelha;
+  _.desabilitaBts = desabilitaBts;
   board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
   testeglobal = 1;
   Kotlin.defineModule('main', _);

@@ -6,8 +6,6 @@ val board = arrayOf(arrayOf(0,0,0), arrayOf(0,0,0), arrayOf(0,0,0))
 
 @JsName("jogar")
 fun jogar() {
-    
-    //val board = arrayOf(arrayOf(0,0,0), arrayOf(0,0,0), arrayOf(0,0,0))
     val tabuleiro = document.getElementById("tabuleiro")
     if (tabuleiro!= null)
         tabuleiro.innerHTML = """
@@ -37,6 +35,12 @@ var testeglobal: Int = 1 // Sendo usada pra verificar a vez, depois trocar pelo 
 
 @JsName("botaoPressionado")
 fun botaoPressionado(id:String){
+    val status = document.getElementById("status")
+    if(status != null)
+        if(testeglobal == 1)
+            status.innerHTML = "Vez de jogador 2(O)"
+        else    
+            status.innerHTML = "Vez de jogador 1(X)"
     val botao = document.getElementById(id) as HTMLButtonElement 
     if (botao.disabled == false)  // deixei a verificacao de nulo pq tava dando uns bugs
         if(testeglobal == 1){
@@ -50,18 +54,37 @@ fun botaoPressionado(id:String){
             testeglobal += 1
             botao.disabled = true // desabilitar o botão 
         }
-    
-
-    val el = document.getElementById("tabuleiro")
+    val restart = document.getElementById("botaoRestart")
     if(verifica()){       
-        if(el != null)
-            el.innerHTML = "cabou"
+        desabilitaBts(0)
+        if(status != null){
+            val s = status.innerHTML.split('(') 
+            if(s[1][0].equals('X'))
+                status.innerHTML = "O jogador 2 venceu!"
+            else
+                status.innerHTML = "O jogador 1 venceu!"
+        }
+        if(restart != null)
+            restart.innerHTML = """
+                <button onclick="window.location.reload()">Jogar novamente</button>
+            """
     } else {
-        if(verificaVelha(0))
-            if(el != null)
-                el.innerHTML = "cabou"
+        if(verificaVelha(0)) {
+            desabilitaBts(0)
+            if(status != null)
+                status.innerHTML = "Empate!"
+            if(restart != null)
+                restart.innerHTML = """
+                    <button onclick="window.location.reload()">Jogar novamente</button>
+                """
+        }
     }
 }
+
+//@JsName("fimDeJogo")
+//fun fimDeJogo(): Boolean{
+
+//}
 
 @JsName("verifica")
 fun verifica(): Boolean{
@@ -123,7 +146,7 @@ fun verificaVelha(i: Int): Boolean {
 //        }
 //    return true
     if(i < 9){
-        val doc = document.getElementsByClassName("bts").item(i)
+        val doc = document.getElementsByClassName("bts").item(i) 
         if(doc != null)
             if(doc.innerHTML != "X" && doc.innerHTML != "O")
                 return false
@@ -132,6 +155,15 @@ fun verificaVelha(i: Int): Boolean {
     return true
 }
 
+@JsName("desabilitaBts")
+fun desabilitaBts(i: Int){
+    if(i < 9){
+        val doc = document.getElementsByClassName("bts").item(i) as HTMLButtonElement
+        if(!doc.disabled)
+            doc.disabled = true
+        desabilitaBts(i + 1)
+    }
+}
 
 
 
