@@ -2,29 +2,31 @@ import kotlinx.browser.*
 import org.w3c.dom.*
 
 
+val board = arrayOf(arrayOf(0,0,0), arrayOf(0,0,0), arrayOf(0,0,0))
+
 @JsName("jogar")
 fun jogar() {
     println("funfando")
-    val board = arrayOf(arrayOf(0,0,0), arrayOf(0,0,0), arrayOf(0,0,0))
+    //val board = arrayOf(arrayOf(0,0,0), arrayOf(0,0,0), arrayOf(0,0,0))
     val tabuleiro = document.getElementById("tabuleiro")
     if (tabuleiro!= null)
         tabuleiro.innerHTML = """
         <html>
         <table>
                 <tr>
-                    <td><button id="b00" onclick="main.botaoPressionado(id)" value="0">00</button></td>
-                    <td><button id="b01" onclick="main.botaoPressionado(id)" value="0">01</button></td>
-                    <td><button id="b02" onclick="main.botaoPressionado(id)" value="0">02</button></td>
+                    <td><button class="bts" id="b00" onclick="main.botaoPressionado(id)" value="0">00</button></td>
+                    <td><button class="bts" id="b01" onclick="main.botaoPressionado(id)" value="0">01</button></td>
+                    <td><button class="bts" id="b02" onclick="main.botaoPressionado(id)" value="0">02</button></td>
                 </tr>
                 <tr>
-                    <td><button id="b10" onclick="main.botaoPressionado(id)" value="0">10</button></td>
-                    <td><button id="b11" onclick="main.botaoPressionado(id)" value="0">11</button></td>
-                    <td><button id="b12" onclick="main.botaoPressionado(id)" value="0">12</button></td>
+                    <td><button class="bts" id="b10" onclick="main.botaoPressionado(id)" value="0">10</button></td>
+                    <td><button class="bts" id="b11" onclick="main.botaoPressionado(id)" value="0">11</button></td>
+                    <td><button class="bts" id="b12" onclick="main.botaoPressionado(id)" value="0">12</button></td>
                 </tr>
                 <tr>
-                    <td><button id="b20" onclick="main.botaoPressionado(id)" value="0">20</button></td>
-                    <td><button id="b21" onclick="main.botaoPressionado(id)" value="0">21</button></td>
-                    <td><button id="b22" onclick="main.botaoPressionado(id)" value="0">22</button></td>
+                    <td><button class="bts" id="b20" onclick="main.botaoPressionado(id)" value="0">20</button></td>
+                    <td><button class="bts" id="b21" onclick="main.botaoPressionado(id)" value="0">21</button></td>
+                    <td><button class="bts" id="b22" onclick="main.botaoPressionado(id)" value="0">22</button></td>
                 </tr>
             </table>
         </html> 
@@ -34,28 +36,97 @@ fun jogar() {
 var testeglobal: Int = 1 // Sendo usada pra verificar a vez, depois trocar pelo nome do jogador
 
 @JsName("botaoPressionado")
-fun botaoPressionado(id:String, board: Array<Array<Int>>){
+fun botaoPressionado(id:String){
     val botao = document.getElementById(id) as HTMLButtonElement 
-    if (botao != null && botao.disabled == false)  // deixei a verificacao de nulo pq tava dando uns bugs
+    if (botao.disabled == false)  // deixei a verificacao de nulo pq tava dando uns bugs
         if(testeglobal == 1){
             botao.innerHTML = "X"
-            val s: String = id.substring(1)
-            
+            board[id[1].toInt()- 48][id[2].toInt() - 48] = 1
             testeglobal -= 1
             botao.disabled = true // desabilitar o botão
         } else {
             botao.innerHTML = "O"
-            botao.value = "-1"
+            board[id[1].toInt() - 48][id[2].toInt() - 48] = -1
             testeglobal += 1
             botao.disabled = true // desabilitar o botão 
         }
-    //verifica()
+    
+
+    val el = document.getElementById("tabuleiro")
+    if(verifica()){       
+        if(el != null)
+            el.innerHTML = "cabou"
+    } else 
+        if(verificaVelha(0, 0))
+            if(el != null)
+                el.innerHTML = "cabou"
 }
 
 @JsName("verifica")
-fun verifica(){
-    //Hipótese: Atribuir o value dos botões à posição correspondente do tabuleiroArray, 
-    //e depois somar o valor das linhas, colunas e diagonais dele. Ou seja, se o valor
-    //de qualquer uma delas for 3, o jogador 1 vence, se for -3, o jogador 2 vence.
-    //talvez eu esteja complicando demais e baste passar o array direto
+fun verifica(): Boolean{
+    if(verificaDiagonais())
+        return true
+    if(verificaLinhas(0, 0, 0))
+        return true
+    if(verificaColunas(0, 0, 0))
+        return true
+    return false
 }
+
+@JsName("verificaLinhas")
+fun verificaLinhas(linha: Int, col: Int, x: Int): Boolean {
+    if(x == 3 || x == -3)
+        return true
+    if(col <= 2 && linha <=2){
+        val r = board[linha][col]
+        return verificaLinhas(linha, col + 1, r + x) 
+    }
+    else if(linha <= 2) {
+        return verificaLinhas(linha + 1, 0, 0) 
+    } 
+    return false
+}
+
+@JsName("verificaColunas")
+fun verificaColunas(linha: Int, col: Int, x: Int): Boolean {
+    if(x == 3 || x == -3)
+        return true
+    if(col <= 2 && linha <=2){
+        val r = board[linha][col]
+        return verificaColunas(linha + 1, col, r + x) 
+    }
+    else 
+    	if(col <= 2) {
+        	return verificaColunas(0, col + 1, 0) 
+    } 
+    return false
+}
+
+@JsName("verificaDiagonais")
+fun verificaDiagonais(): Boolean {
+    val d1: Int = board[0][0] + board[1][1] + board[2][2]
+    val d2: Int = board[0][2] + board[1][1] + board[2][0]
+    if(d1 == 3 || d1 == -3 || d2 == 3 || d2 == -3)
+    	return true
+    return false
+}
+
+@JsName("verificaVelha")
+fun verificaVelha(linha: Int, col: Int): Boolean {
+    //val a = document.getElementsByTagName("td")
+    //val a = document.querySelector(".bts")
+    //val z = /* @type{HTMLButtonElement} */a
+    //val x = document.querySelectorAll(".bts")
+    //for (i in 0..9){
+     //   var z =  /* @type{HTMLButtonElement} */a
+      //  println(z.disabled)
+    //}
+    
+
+    
+    return false
+}
+
+
+
+
