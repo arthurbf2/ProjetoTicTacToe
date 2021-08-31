@@ -6,7 +6,7 @@ val board = arrayOf(arrayOf(0,0,0), arrayOf(0,0,0), arrayOf(0,0,0))
 
 @JsName("jogar")
 fun jogar() {
-    println("funfando")
+    
     //val board = arrayOf(arrayOf(0,0,0), arrayOf(0,0,0), arrayOf(0,0,0))
     val tabuleiro = document.getElementById("tabuleiro")
     if (tabuleiro!= null)
@@ -41,12 +41,12 @@ fun botaoPressionado(id:String){
     if (botao.disabled == false)  // deixei a verificacao de nulo pq tava dando uns bugs
         if(testeglobal == 1){
             botao.innerHTML = "X"
-            board[id[1].toInt()- 48][id[2].toInt() - 48] = 1
+            board[id[1].code- 48][id[2].code - 48] = 1
             testeglobal -= 1
             botao.disabled = true // desabilitar o botão
         } else {
             botao.innerHTML = "O"
-            board[id[1].toInt() - 48][id[2].toInt() - 48] = -1
+            board[id[1].code - 48][id[2].code - 48] = -1
             testeglobal += 1
             botao.disabled = true // desabilitar o botão 
         }
@@ -56,10 +56,11 @@ fun botaoPressionado(id:String){
     if(verifica()){       
         if(el != null)
             el.innerHTML = "cabou"
-    } else 
-        if(verificaVelha(0, 0))
+    } else {
+        if(verificaVelha())
             if(el != null)
                 el.innerHTML = "cabou"
+    }
 }
 
 @JsName("verifica")
@@ -112,7 +113,7 @@ fun verificaDiagonais(): Boolean {
 }
 
 @JsName("verificaVelha")
-fun verificaVelha(linha: Int, col: Int): Boolean {
+fun verificaVelha(): Boolean {
     //val a = document.getElementsByTagName("td")
     //val a = document.querySelector(".bts")
     //val z = /* @type{HTMLButtonElement} */a
@@ -123,8 +124,16 @@ fun verificaVelha(linha: Int, col: Int): Boolean {
     //}
     
 
+    //val doc = document.getElementsByClassName("bts").item(0)    //HTMLELEMENT
     
-    return false
+    for (i in 0..9){
+        var doc = document.getElementsByClassName("bts").item(i)
+        if(doc != null)
+            if(doc.innerHTML != "X" && doc.innerHTML != "O"){
+                return false
+            }
+        }
+    return true
 }
 
 

@@ -2,11 +2,12 @@ if (typeof kotlin === 'undefined') {
   throw new Error("Error loading module 'main'. Its dependency 'kotlin' was not found. Please, check whether 'kotlin' is loaded prior to 'main'.");
 }var main = function (_, Kotlin) {
   'use strict';
-  var println = Kotlin.kotlin.io.println_s8jyv4$;
   var throwCCE = Kotlin.throwCCE;
+  var println = Kotlin.kotlin.io.println_s8jyv4$;
+  var equals = Kotlin.equals;
+  var print = Kotlin.kotlin.io.print_s8jyv4$;
   var board;
   function jogar() {
-    println('funfando');
     var tabuleiro = document.getElementById('tabuleiro');
     if (tabuleiro != null)
       tabuleiro.innerHTML = '\n        <html>\n        <table>\n                <tr>\n                    <td><button class="bts" id="b00" onclick="main.botaoPressionado(id)" value="0">00<\/button><\/td>\n                    <td><button class="bts" id="b01" onclick="main.botaoPressionado(id)" value="0">01<\/button><\/td>\n                    <td><button class="bts" id="b02" onclick="main.botaoPressionado(id)" value="0">02<\/button><\/td>\n                <\/tr>\n                <tr>\n                    <td><button class="bts" id="b10" onclick="main.botaoPressionado(id)" value="0">10<\/button><\/td>\n                    <td><button class="bts" id="b11" onclick="main.botaoPressionado(id)" value="0">11<\/button><\/td>\n                    <td><button class="bts" id="b12" onclick="main.botaoPressionado(id)" value="0">12<\/button><\/td>\n                <\/tr>\n                <tr>\n                    <td><button class="bts" id="b20" onclick="main.botaoPressionado(id)" value="0">20<\/button><\/td>\n                    <td><button class="bts" id="b21" onclick="main.botaoPressionado(id)" value="0">21<\/button><\/td>\n                    <td><button class="bts" id="b22" onclick="main.botaoPressionado(id)" value="0">22<\/button><\/td>\n                <\/tr>\n            <\/table>\n        <\/html> \n        ';
@@ -31,9 +32,12 @@ if (typeof kotlin === 'undefined') {
     if (verifica()) {
       if (el != null)
         el.innerHTML = 'cabou';
-    } else if (verificaVelha(0, 0))
-      if (el != null)
-        el.innerHTML = 'cabou';
+    } else {
+      println('OLA');
+      if (verificaVelha())
+        if (el != null)
+          el.innerHTML = 'cabou';
+    }
   }
   function verifica() {
     if (verificaDiagonais())
@@ -71,8 +75,15 @@ if (typeof kotlin === 'undefined') {
       return true;
     return false;
   }
-  function verificaVelha(linha, col) {
-    return false;
+  function verificaVelha() {
+    for (var i = 0; i <= 9; i++) {
+      var doc = document.getElementsByClassName('bts').item(i);
+      if (doc != null)
+        if (!equals(doc.innerHTML, 'X') && !equals(doc.innerHTML, 'O')) {
+          return false;
+        }}
+    print('DEU VELHA');
+    return true;
   }
   Object.defineProperty(_, 'board', {
     get: function () {
