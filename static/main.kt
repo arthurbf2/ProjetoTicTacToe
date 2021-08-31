@@ -57,7 +57,7 @@ fun botaoPressionado(id:String){
         if(el != null)
             el.innerHTML = "cabou"
     } else {
-        if(verificaVelha())
+        if(verificaVelha(0))
             if(el != null)
                 el.innerHTML = "cabou"
     }
@@ -113,26 +113,22 @@ fun verificaDiagonais(): Boolean {
 }
 
 @JsName("verificaVelha")
-fun verificaVelha(): Boolean {
-    //val a = document.getElementsByTagName("td")
-    //val a = document.querySelector(".bts")
-    //val z = /* @type{HTMLButtonElement} */a
-    //val x = document.querySelectorAll(".bts")
-    //for (i in 0..9){
-     //   var z =  /* @type{HTMLButtonElement} */a
-      //  println(z.disabled)
-    //}
-    
-
-    //val doc = document.getElementsByClassName("bts").item(0)    //HTMLELEMENT
-    
-    for (i in 0..9){
-        var doc = document.getElementsByClassName("bts").item(i)
+fun verificaVelha(i: Int): Boolean {    
+//    for (i in 0..9){
+//        var doc = document.getElementsByClassName("bts").item(i)
+//        if(doc != null)
+//            if(doc.innerHTML != "X" && doc.innerHTML != "O"){
+//                return false
+//            }
+//        }
+//    return true
+    if(i < 9){
+        val doc = document.getElementsByClassName("bts").item(i)
         if(doc != null)
-            if(doc.innerHTML != "X" && doc.innerHTML != "O"){
+            if(doc.innerHTML != "X" && doc.innerHTML != "O")
                 return false
-            }
-        }
+        return verificaVelha(i + 1)
+    }
     return true
 }
 

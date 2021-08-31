@@ -3,9 +3,7 @@ if (typeof kotlin === 'undefined') {
 }var main = function (_, Kotlin) {
   'use strict';
   var throwCCE = Kotlin.throwCCE;
-  var println = Kotlin.kotlin.io.println_s8jyv4$;
   var equals = Kotlin.equals;
-  var print = Kotlin.kotlin.io.print_s8jyv4$;
   var board;
   function jogar() {
     var tabuleiro = document.getElementById('tabuleiro');
@@ -33,8 +31,7 @@ if (typeof kotlin === 'undefined') {
       if (el != null)
         el.innerHTML = 'cabou';
     } else {
-      println('OLA');
-      if (verificaVelha())
+      if (verificaVelha(0))
         if (el != null)
           el.innerHTML = 'cabou';
     }
@@ -75,15 +72,14 @@ if (typeof kotlin === 'undefined') {
       return true;
     return false;
   }
-  function verificaVelha() {
-    for (var i = 0; i <= 9; i++) {
+  function verificaVelha(i) {
+    if (i < 9) {
       var doc = document.getElementsByClassName('bts').item(i);
       if (doc != null)
-        if (!equals(doc.innerHTML, 'X') && !equals(doc.innerHTML, 'O')) {
+        if (!equals(doc.innerHTML, 'X') && !equals(doc.innerHTML, 'O'))
           return false;
-        }}
-    print('DEU VELHA');
-    return true;
+      return verificaVelha(i + 1 | 0);
+    }return true;
   }
   Object.defineProperty(_, 'board', {
     get: function () {
