@@ -6,6 +6,9 @@ val board = arrayOf(arrayOf(0,0,0), arrayOf(0,0,0), arrayOf(0,0,0))
 
 @JsName("jogar")
 fun jogar() {
+    val status = document.getElementById("status")
+    if(status != null)
+        status.innerHTML = "Vez de jogador 1(X)"
     val tabuleiro = document.getElementById("tabuleiro")
     if (tabuleiro!= null)
         tabuleiro.innerHTML = """
@@ -54,9 +57,32 @@ fun botaoPressionado(id:String){
             testeglobal += 1
             botao.disabled = true // desabilitar o botão 
         }
-    val restart = document.getElementById("botaoRestart")
-    if(verifica()){       
+    if(fimDeJogo()){
         desabilitaBts(0)
+        val restart = document.getElementById("botaoRestart")
+        if(restart != null)
+            restart.innerHTML = """
+                <button onclick="main.resetaBoard(0, 0)">Jogar novamente</button>
+            """
+    }
+}
+
+@JsName("resetaBoard")
+fun resetaBoard(linha: Int, col: Int){
+    if(col <= 2 && linha <=2){
+        board[linha][col] = 0
+        resetaBoard(linha + 1, col) 
+    }
+    else 
+    	if(col <= 2) {
+        	resetaBoard(0, col + 1) 
+    } 
+    jogar()
+}
+@JsName("fimDeJogo")
+fun fimDeJogo(): Boolean{
+    val status = document.getElementById("status")
+    if(verifica()){       
         if(status != null){
             val s = status.innerHTML.split('(') 
             if(s[1][0].equals('X'))
@@ -64,27 +90,16 @@ fun botaoPressionado(id:String){
             else
                 status.innerHTML = "O jogador 1 venceu!"
         }
-        if(restart != null)
-            restart.innerHTML = """
-                <button onclick="window.location.reload()">Jogar novamente</button>
-            """
+        return true
     } else {
         if(verificaVelha(0)) {
-            desabilitaBts(0)
             if(status != null)
-                status.innerHTML = "Empate!"
-            if(restart != null)
-                restart.innerHTML = """
-                    <button onclick="window.location.reload()">Jogar novamente</button>
-                """
+                status.innerHTML = "Deu velha!"
+        return true
         }
     }
+    return false
 }
-
-//@JsName("fimDeJogo")
-//fun fimDeJogo(): Boolean{
-
-//}
 
 @JsName("verifica")
 fun verifica(): Boolean{
@@ -137,14 +152,6 @@ fun verificaDiagonais(): Boolean {
 
 @JsName("verificaVelha")
 fun verificaVelha(i: Int): Boolean {    
-//    for (i in 0..9){
-//        var doc = document.getElementsByClassName("bts").item(i)
-//        if(doc != null)
-//            if(doc.innerHTML != "X" && doc.innerHTML != "O"){
-//                return false
-//            }
-//        }
-//    return true
     if(i < 9){
         val doc = document.getElementsByClassName("bts").item(i) 
         if(doc != null)
@@ -165,5 +172,8 @@ fun desabilitaBts(i: Int){
     }
 }
 
+//@JsName("jarvis")
+//fun jarvis(){
 
+//}
 

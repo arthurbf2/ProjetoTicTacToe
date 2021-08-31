@@ -8,6 +8,9 @@ if (typeof kotlin === 'undefined') {
   var equals = Kotlin.equals;
   var board;
   function jogar() {
+    var status = document.getElementById('status');
+    if (status != null)
+      status.innerHTML = 'Vez de jogador 1(X)';
     var tabuleiro = document.getElementById('tabuleiro');
     if (tabuleiro != null)
       tabuleiro.innerHTML = '\n        <html>\n        <table>\n                <tr>\n                    <td><button class="bts" id="b00" onclick="main.botaoPressionado(id)" value="0">00<\/button><\/td>\n                    <td><button class="bts" id="b01" onclick="main.botaoPressionado(id)" value="0">01<\/button><\/td>\n                    <td><button class="bts" id="b02" onclick="main.botaoPressionado(id)" value="0">02<\/button><\/td>\n                <\/tr>\n                <tr>\n                    <td><button class="bts" id="b10" onclick="main.botaoPressionado(id)" value="0">10<\/button><\/td>\n                    <td><button class="bts" id="b11" onclick="main.botaoPressionado(id)" value="0">11<\/button><\/td>\n                    <td><button class="bts" id="b12" onclick="main.botaoPressionado(id)" value="0">12<\/button><\/td>\n                <\/tr>\n                <tr>\n                    <td><button class="bts" id="b20" onclick="main.botaoPressionado(id)" value="0">20<\/button><\/td>\n                    <td><button class="bts" id="b21" onclick="main.botaoPressionado(id)" value="0">21<\/button><\/td>\n                    <td><button class="bts" id="b22" onclick="main.botaoPressionado(id)" value="0">22<\/button><\/td>\n                <\/tr>\n            <\/table>\n        <\/html> \n        ';
@@ -34,25 +37,37 @@ if (typeof kotlin === 'undefined') {
         testeglobal = testeglobal + 1 | 0;
         botao.disabled = true;
       }
-    var restart = document.getElementById('botaoRestart');
-    if (verifica()) {
+    if (fimDeJogo()) {
       desabilitaBts(0);
+      var restart = document.getElementById('botaoRestart');
+      if (restart != null)
+        restart.innerHTML = '\n                <button onclick="main.resetaBoard(0, 0)">Jogar novamente<\/button>\n            ';
+    }}
+  function resetaBoard(linha, col) {
+    if (col <= 2 && linha <= 2) {
+      board[linha][col] = 0;
+      resetaBoard(linha + 1 | 0, col);
+    } else if (col <= 2) {
+      resetaBoard(0, col + 1 | 0);
+    }jogar();
+  }
+  function fimDeJogo() {
+    var status = document.getElementById('status');
+    if (verifica()) {
       if (status != null) {
         var s = split(status.innerHTML, Kotlin.charArrayOf(40));
         if (equals(toBoxedChar(s.get_za3lpa$(1).charCodeAt(0)), toBoxedChar(88)))
           status.innerHTML = 'O jogador 2 venceu!';
         else
           status.innerHTML = 'O jogador 1 venceu!';
-      }if (restart != null)
-        restart.innerHTML = '\n                <button onclick="window.location.reload()">Jogar novamente<\/button>\n            ';
+      }return true;
     } else {
       if (verificaVelha(0)) {
-        desabilitaBts(0);
         if (status != null)
           status.innerHTML = 'Empate!';
-        if (restart != null)
-          restart.innerHTML = '\n                    <button onclick="window.location.reload()">Jogar novamente<\/button>\n                ';
+        return true;
       }}
+    return false;
   }
   function verifica() {
     if (verificaDiagonais())
@@ -122,6 +137,8 @@ if (typeof kotlin === 'undefined') {
     }
   });
   _.botaoPressionado = botaoPressionado;
+  _.resetaBoard = resetaBoard;
+  _.fimDeJogo = fimDeJogo;
   _.verifica = verifica;
   _.verificaLinhas = verificaLinhas;
   _.verificaColunas = verificaColunas;
