@@ -18,7 +18,7 @@ if (typeof kotlin === 'undefined') {
       status.innerHTML = 'Vez de jogador 1(X)';
     var tabuleiro = document.getElementById('tabuleiro');
     if (tabuleiro != null)
-      tabuleiro.innerHTML = '\n' + '        <html>' + '\n' + '        <table>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b00' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>00<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b01' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>01<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b02' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>02<\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b10' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>10<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b11' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>11<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b12' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>12<\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b20' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>20<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b21' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>21<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b22' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>22<\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '            <\/table>' + '\n' + '        <\/html> ' + '\n' + '        ';
+      tabuleiro.innerHTML = '\n' + '        <html>' + '\n' + '        <table>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b00' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>.<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b01' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>.<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b02' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>.<\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b10' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>.<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b11' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>.<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b12' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>.<\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b20' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>.<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b21' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>.<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b22' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>.<\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '            <\/table>' + '\n' + '        <\/html> ' + '\n' + '        ';
   }
   var testeglobal;
   function botaoPressionado(id, vsJarvis) {
@@ -51,7 +51,7 @@ if (typeof kotlin === 'undefined') {
       desabilitaBts(0);
       var restart = document.getElementById('botaoRestart');
       if (restart != null)
-        restart.innerHTML = '\n' + '                <button onclick=' + '"' + 'main.resetaBoard(0, 0, ' + vsJarvis + ')' + '"' + '>Jogar novamente<\/button>' + '\n' + '                <button onclick=' + '"' + 'resetaBoardGOTOMENU(0, 0)' + '"' + '>Voltar ao menu<\/button>' + '\n' + '            ';
+        restart.innerHTML = '\n' + '                <button onclick=' + '"' + 'main.resetaBoard(0, 0, ' + vsJarvis + ')' + '"' + '>Jogar novamente<\/button>' + '\n' + '                <button onclick=' + '"' + 'main.resetaBoardGOTOMENU(0, 0)' + '"' + '>Voltar ao menu<\/button>' + '\n' + '            ';
     }}
   function resetaBoardGOTOMENU(linha, col) {
     if (col <= 2 && linha <= 2) {
@@ -59,7 +59,22 @@ if (typeof kotlin === 'undefined') {
       resetaBoardGOTOMENU(linha + 1 | 0, col);
     } else if (col <= 2) {
       resetaBoardGOTOMENU(0, col + 1 | 0);
-    }}
+    }reset();
+  }
+  function reset() {
+    var options = document.getElementById('botoes');
+    var tabuleiro = document.getElementById('tabuleiro');
+    var status = document.getElementById('status');
+    var restart = document.getElementById('botaoRestart');
+    if (options != null) {
+      options.innerHTML = '\n        <button class="botao" onclick="main.jogar(false); document.getElementById(\'player\').play()">Jogar contra um amigo<\/button>\n        <button class="botao" onclick="main.jogar(true); document.getElementById(\'player\').play()">Jogar contra Jarvis<\/button>\n        ';
+    }if (tabuleiro != null)
+      tabuleiro.innerHTML = ' ';
+    if (status != null)
+      status.innerHTML = ' ';
+    if (restart != null)
+      restart.innerHTML = ' ';
+  }
   function resetaBoard(linha, col, vsJarvis) {
     if (col <= 2 && linha <= 2) {
       board[linha][col] = 0;
@@ -152,8 +167,7 @@ if (typeof kotlin === 'undefined') {
     }
     bestMoveID = 'b' + bestMoveID;
     var move = Kotlin.isType(tmp$_0 = document.getElementById(bestMoveID), HTMLButtonElement) ? tmp$_0 : throwCCE();
-    if (move != null)
-      move.click();
+    move.click();
   }
   function verificaEspacos(linha, col, list) {
     if (col <= 2 && linha <= 2) {
@@ -231,6 +245,7 @@ if (typeof kotlin === 'undefined') {
   });
   _.botaoPressionado = botaoPressionado;
   _.resetaBoardGOTOMENU = resetaBoardGOTOMENU;
+  _.reset = reset;
   _.resetaBoard = resetaBoard;
   _.fimDeJogo = fimDeJogo;
   _.verifica = verifica;

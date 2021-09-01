@@ -19,19 +19,19 @@ fun jogar(vsJarvis: Boolean) {
         <html>
         <table>
                 <tr>
-                    <td><button class="bts" id="b00" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">00</button></td>
-                    <td><button class="bts" id="b01" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">01</button></td>
-                    <td><button class="bts" id="b02" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">02</button></td>
+                    <td><button class="bts" id="b00" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
+                    <td><button class="bts" id="b01" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
+                    <td><button class="bts" id="b02" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
                 </tr>
                 <tr>
-                    <td><button class="bts" id="b10" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">10</button></td>
-                    <td><button class="bts" id="b11" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">11</button></td>
-                    <td><button class="bts" id="b12" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">12</button></td>
+                    <td><button class="bts" id="b10" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
+                    <td><button class="bts" id="b11" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
+                    <td><button class="bts" id="b12" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
                 </tr>
                 <tr>
-                    <td><button class="bts" id="b20" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">20</button></td>
-                    <td><button class="bts" id="b21" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">21</button></td>
-                    <td><button class="bts" id="b22" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">22</button></td>
+                    <td><button class="bts" id="b20" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
+                    <td><button class="bts" id="b21" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
+                    <td><button class="bts" id="b22" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
                 </tr>
             </table>
         </html> 
@@ -74,7 +74,7 @@ fun botaoPressionado(id:String, vsJarvis: Boolean){
         if(restart != null)
             restart.innerHTML = """
                 <button onclick="main.resetaBoard(0, 0, $vsJarvis)">Jogar novamente</button>
-                <button onclick="resetaBoardGOTOMENU(0, 0)">Voltar ao menu</button>
+                <button onclick="main.resetaBoardGOTOMENU(0, 0)">Voltar ao menu</button>
             """
     }
 }
@@ -89,15 +89,26 @@ fun resetaBoardGOTOMENU(linha: Int, col: Int){
     	if(col <= 2) {
         	resetaBoardGOTOMENU(0, col + 1) 
     } 
+    reset()
+}
 
-    /*val options = document.getElementById("botoes")
+fun reset(){
+    val options = document.getElementById("botoes")
+    val tabuleiro = document.getElementById("tabuleiro")
+    val status = document.getElementById("status")
+    val restart = document.getElementById("botaoRestart")
     if(options != null){
         options.innerHTML = """
         <button class="botao" onclick="main.jogar(false); document.getElementById('player').play()">Jogar contra um amigo</button>
         <button class="botao" onclick="main.jogar(true); document.getElementById('player').play()">Jogar contra Jarvis</button>
         """
-    }*/
-    
+    }
+    if(tabuleiro != null)
+        tabuleiro.innerHTML = """ """
+    if(status != null)
+        status.innerHTML = """ """
+    if(restart != null)
+        restart.innerHTML = """ """ 
 }
 
 @JsName("resetaBoard")
@@ -221,8 +232,7 @@ fun jarvis(){
     bestMoveID = "b" + bestMoveID
     
     val move = document.getElementById(bestMoveID) as HTMLButtonElement
-    if(move != null)
-        move.click()
+    move.click()
 
 }
 
