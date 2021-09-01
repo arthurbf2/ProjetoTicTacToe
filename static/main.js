@@ -55,7 +55,6 @@ if (typeof kotlin === 'undefined') {
       if (restart != null)
         restart.innerHTML = '\n' + '                <button onclick=' + '"' + 'main.resetaBoard(0, 0, ' + vsJarvis + ')' + '"' + '>Jogar novamente<\/button>' + '\n' + '                <button onclick=' + '"' + 'main.resetaBoardGOTOMENU(0, 0)' + '"' + '>Voltar ao menu<\/button>' + '\n' + '            ';
     }}
-  var glob;
   function vencedor(linha, coluna, vsJarvis) {
     var status = document.getElementById('status');
     if (status != null) {
@@ -78,7 +77,6 @@ if (typeof kotlin === 'undefined') {
     } else if (col <= 2) {
       resetaBoardGOTOMENU(0, col + 1 | 0);
     }reset();
-    glob = true;
   }
   function reset() {
     var options = document.getElementById('botoes');
@@ -101,7 +99,6 @@ if (typeof kotlin === 'undefined') {
     } else if (col <= 2) {
       resetaBoard(0, col + 1 | 0, vsJarvis);
     }jogar(vsJarvis);
-    glob = true;
   }
   function fimDeJogo() {
     return verifica() || verificaVelha(0);
@@ -169,9 +166,10 @@ if (typeof kotlin === 'undefined') {
       tmp$ = possiblePositions.iterator();
       while (tmp$.hasNext()) {
         var i = tmp$.next();
-        if (jarvisBoardAnalysis(i) > score)
+        if (jarvisBoardAnalysis(i) > score) {
+          score = jarvisBoardAnalysis(i);
           bestMoveID = i;
-      }
+        }}
       bestMoveID = 'b' + bestMoveID;
       var move = Kotlin.isType(tmp$_0 = document.getElementsByClassName('bts').item(auxiliarCasting(bestMoveID)), HTMLButtonElement) ? tmp$_0 : throwCCE();
       move.click();
@@ -202,7 +200,7 @@ if (typeof kotlin === 'undefined') {
     var teste = positionIsVital(linha, col);
     println('Posi\xE7\xE3o ' + linha + ' ' + col + ' \xE9 vital? ' + teste);
     if (positionIsVital(linha, col))
-      score = score + 5 | 0;
+      score = score + 4 | 0;
     if (linha === 1 && col === 1) {
       score = score + 2 | 0;
       if (positionHasEnemyAtDiagonal(linha, col))
@@ -215,19 +213,43 @@ if (typeof kotlin === 'undefined') {
       if (positionHasEnemyAtLine(linha, 0) || positionHasEnemyAtColumn(0, col)) {
         score = score - 2 | 0;
       }}
+    if (linha === 1 && col === 1)
+      println('[' + linha + '][' + col + '] = ' + score);
+    else if (linha === 0 && col === 2)
+      println('[' + linha + '][' + col + '] = ' + score);
     return score;
   }
   function positionIsVital(linha, col) {
     var r1 = contabilizaLinha(linha, 0, 0);
     var r2 = contabilizaColuna(0, col, 0);
+    var r3 = contabilizaDiagonal(linha, col);
     if (r1 === 2 || r2 === -2) {
       return true;
     }if (r2 === 2 || r2 === -2)
       return true;
+    if (r3 === 2 || r3 === -2)
+      return true;
     return false;
   }
-  function contabilizaDiagonal(linha, col, res) {
-    return 0;
+  function contabilizaDiagonal(linha, col) {
+    if (linha === 1 && col === 1) {
+      var x = board[0][0] + board[2][2] | 0;
+      var z = board[0][2] + board[2][0] | 0;
+      if (x === 2 || x === -2)
+        return x;
+      else if (z === 2 || z === -2)
+        return z;
+      return 0;
+    } else if (linha === 0 && col === 0)
+      return board[1][1] + board[2][2] | 0;
+    else if (linha === 2 && col === 2)
+      return board[1][1] + board[0][0] | 0;
+    else if (linha === 0 && col === 2)
+      return board[1][1] + board[2][0] | 0;
+    else if (linha === 2 && col === 0)
+      return board[1][1] + board[0][2] | 0;
+    else
+      return 0;
   }
   function contabilizaLinha(linha, col, res) {
     if (col <= 2) {
@@ -288,14 +310,6 @@ if (typeof kotlin === 'undefined') {
     }
   });
   _.botaoPressionado = botaoPressionado;
-  Object.defineProperty(_, 'glob', {
-    get: function () {
-      return glob;
-    },
-    set: function (value) {
-      glob = value;
-    }
-  });
   _.vencedor = vencedor;
   _.resetaBoardGOTOMENU = resetaBoardGOTOMENU;
   _.reset = reset;
@@ -320,7 +334,6 @@ if (typeof kotlin === 'undefined') {
   _.positionHasEnemyAtDiagonal = positionHasEnemyAtDiagonal;
   board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
   testeglobal = 1;
-  glob = true;
   Kotlin.defineModule('main', _);
   return _;
 }(typeof main === 'undefined' ? {} : main, kotlin);

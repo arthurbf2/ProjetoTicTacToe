@@ -82,7 +82,7 @@ fun botaoPressionado(id:String, vsJarvis: Boolean){
             """
     }
 }
-var glob: Boolean = true
+
 @JsName("vencedor")
 fun vencedor(linha: Int, coluna: Int, vsJarvis: Boolean){
     val status = document.getElementById("status")
@@ -115,7 +115,6 @@ fun resetaBoardGOTOMENU(linha: Int, col: Int){
         	resetaBoardGOTOMENU(0, col + 1) 
     } 
     reset()
-    glob = true 
 }
 
 fun reset(){
@@ -148,7 +147,6 @@ fun resetaBoard(linha: Int, col: Int, vsJarvis:Boolean){
         	resetaBoard(0, col + 1, vsJarvis) 
     } 
     jogar(vsJarvis)
-    glob = true
 }
 
 @JsName("fimDeJogo")
@@ -235,8 +233,10 @@ fun jarvis(){
     if(possiblePositions.size > 0){
         var bestMoveID = possiblePositions[0]
         for(i in possiblePositions){
-            if (jarvisBoardAnalysis(i) > score)
-               bestMoveID = i
+            if (jarvisBoardAnalysis(i) > score){
+                score = jarvisBoardAnalysis(i)
+                bestMoveID = i
+            }
         }
         bestMoveID = "b" + bestMoveID
         val move = document.getElementsByClassName("bts").item(auxiliarCasting(bestMoveID)) as HTMLButtonElement
@@ -280,20 +280,24 @@ fun jarvisBoardAnalysis(id: String):Int{
     val teste = positionIsVital(linha, col)
     println("Posição $linha $col é vital? $teste")
     if(positionIsVital(linha, col))
-        score += 5
+        score += 4
     if(linha == 1 && col == 1){
         score += 2
         if(positionHasEnemyAtDiagonal(linha, col))
             score -=2
     } else if(linha == col || (linha == 0 && col == 2) || (linha == 2 && col == 0)){
         score += 1
-        if(positionHasEnemyAtDiagonal(linha, col))
+        if(positionHasEnemyAtDiagonal(linha, col)) 
             score -=2
     } else{
         if(positionHasEnemyAtLine(linha, 0) || positionHasEnemyAtColumn(0, col)){
             score -= 2
         } 
     }
+    if(linha == 1 && col == 1)
+        println("[$linha][$col] = $score")
+    else if(linha == 0 && col == 2)
+        println("[$linha][$col] = $score")
     return score
 }
 
@@ -301,20 +305,38 @@ fun jarvisBoardAnalysis(id: String):Int{
 fun positionIsVital(linha: Int, col: Int): Boolean{  // se alguém ganhar ao escolher a posição, ela é vital
     val r1 = contabilizaLinha(linha, 0, 0)
     val r2 = contabilizaColuna(0, col, 0)
+    val r3 = contabilizaDiagonal(linha, col)
     if(r1 == 2 || r2 == -2){  
         return true
     }
     if(r2 == 2 || r2 == -2)
         return true
-   // if(linha == col || (linha == 0 && col == 2) || (linha == 2 && col == 0))
-   //     contabilizaDiagonal(linha, col, 0)
+    if(r3 == 2 || r3 == -2)
+        return true
     return false
     
 }
 
 @JsName("contabilizaDiagonal")
-fun contabilizaDiagonal(linha: Int, col: Int, res: Int): Int{  
-    return 0
+fun contabilizaDiagonal(linha: Int, col: Int): Int{  
+    if(linha == 1 && col == 1){
+        val x = board[0][0] + board[2][2]
+        val z = board[0][2] + board[2][0]
+        if(x == 2 || x == -2)
+            return x
+        else if(z == 2 || z == -2)
+            return z
+        return 0
+    } else if(linha == 0 && col == 0)
+        return board[1][1] + board[2][2]
+    else if(linha == 2 && col == 2)
+        return board[1][1] + board[0][0]
+    else if(linha == 0 && col == 2)
+        return board[1][1] + board[2][0]
+    else if(linha == 2 && col == 0)
+        return board[1][1] + board[0][2]  
+    else
+        return 0  
 }
 
 @JsName("contabilizaLinha")
