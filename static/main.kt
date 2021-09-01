@@ -51,7 +51,6 @@ fun botaoPressionado(id:String, vsJarvis: Boolean){
     val coluna = id[2].code - 48
     if (botao.disabled == false) 
         if(testeglobal == 1){
-            println("Jogador 1 jogou")
             botao.innerHTML = "X"
             board[linha][coluna] = 1
             testeglobal = 0
@@ -62,7 +61,6 @@ fun botaoPressionado(id:String, vsJarvis: Boolean){
                 jarvis()
             }
         } else{
-            println("Jogador 2 jogou")
             testeglobal = 1
             botao.innerHTML = "O"
             board[linha][coluna] = -1
@@ -72,9 +70,9 @@ fun botaoPressionado(id:String, vsJarvis: Boolean){
         }
     if(fimDeJogo()){
         desabilitaBts(0)
-        if(glob) {
-            vencedor(linha, coluna, vsJarvis)
-            glob = false
+        if(status != null){
+            if(status.innerHTML.contains("!") == false)
+                vencedor(linha, coluna, vsJarvis)
         }
         val restart = document.getElementById("botaoRestart")
         if(restart != null)
@@ -88,11 +86,9 @@ var glob: Boolean = true
 @JsName("vencedor")
 fun vencedor(linha: Int, coluna: Int, vsJarvis: Boolean){
     val status = document.getElementById("status")
-    println("" + linha + coluna)
     if(status != null) {
         if(verifica()) {
             if(board[linha][coluna] == 1) {
-                println("O jogador 1 venceu!")
                 status.innerHTML = "O jogador 1 venceu!"
             }
             else{
@@ -244,13 +240,13 @@ fun jarvis(){
                bestMoveID = i
         }
         bestMoveID = "b" + bestMoveID
-        val move = document.getElementsByClassName("bts").item(auxiliar(bestMoveID)) as HTMLButtonElement
+        val move = document.getElementsByClassName("bts").item(auxiliarCasting(bestMoveID)) as HTMLButtonElement
         move.click()
     }
 }
 
-@JsName("auxiliar")
-fun auxiliar(s: String): Int{
+@JsName("auxiliarCasting")
+fun auxiliarCasting(s: String): Int{
     for(i in 0..9){
         val doc = document.getElementsByClassName("bts").item(i)
         if(doc != null)
@@ -277,25 +273,65 @@ fun verificaEspacos(linha: Int, col: Int, list: MutableList<String>): MutableLis
 
 @JsName("jarvisBoardAnalysis")
 fun jarvisBoardAnalysis(id: String):Int{
+    //Mais 04 pontos se a posição impedir a vitória do adversário
+    //Mais 04 pontos se a posição levar a uma vitória
     val linha:Int = id[0].code - 48
     val col:Int = id[1].code - 48
     var score:Int = 0
+    val teste = positionIsVital(linha, col)
+    println("Posição $linha $col é vital? $teste")
     if(linha == 1 && col == 1){
         score += 2
         if(positionHasEnemyAtDiagonal(linha, col))
             score -=2
+        if(positionIsVital(linha, col))
+            score +=4
     } else if(linha == col || (linha == 0 && col == 2) || (linha == 2 && col == 0)){
         score += 1
+        if(positionIsVital(linha,col))
+            score +=4
         if(positionHasEnemyAtDiagonal(linha, col))
             score -=2
     } else{
         if(positionHasEnemyAtLine(linha, 0) || positionHasEnemyAtColumn(0, col)){
+            if(positionIsVital(linha, col))
+                score +=4
             score -= 2
         } 
     }
-
     return score
+}
 
+@JsName("positionsIsVital")
+fun positionIsVital(linha: Int, col: Int): Boolean{
+    val r1 = contabilizaLinha(linha, 0, 0)
+    val r2 = contabilizaColuna(0, col, 0)
+  //  println("Valor de $linha $col (linha): $r1")
+  //  println("Valor de $linha $col (coluna): $r2")
+    if(r1 == 2 || r2 == -2){
+        return true
+    }
+    if(r2 == 2 || r2 == -2)
+        return true
+    return false
+}
+
+@JsName("contabilizaLinha")
+fun contabilizaLinha(linha: Int, col: Int, res: Int): Int{
+    if(col < 2){
+        val x = board[linha][col]
+        return contabilizaLinha(linha, col + 1, x + res)
+    }
+    return res
+}
+
+@JsName("contabilizaColuna")
+fun contabilizaColuna(linha: Int, col: Int, res: Int): Int {
+    if(linha < 2){
+        val x = board[linha][col]
+        return contabilizaColuna(linha + 1, col, x + res)
+    }
+    return res
 }
 
 @JsName("positionHasEnemyAtLine")

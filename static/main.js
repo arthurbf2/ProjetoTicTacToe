@@ -3,9 +3,10 @@ if (typeof kotlin === 'undefined') {
 }var main = function (_, Kotlin) {
   'use strict';
   var throwCCE = Kotlin.throwCCE;
-  var println = Kotlin.kotlin.io.println_s8jyv4$;
-  var toString = Kotlin.toString;
+  var contains = Kotlin.kotlin.text.contains_li3zpu$;
   var equals = Kotlin.equals;
+  var toString = Kotlin.toString;
+  var println = Kotlin.kotlin.io.println_s8jyv4$;
   var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_287e2$;
   var board;
   function jogar(vsJarvis) {
@@ -29,7 +30,6 @@ if (typeof kotlin === 'undefined') {
     var coluna = (id.charCodeAt(2) | 0) - 48 | 0;
     if (botao.disabled === false)
       if (testeglobal === 1) {
-        println('Jogador 1 jogou');
         botao.innerHTML = 'X';
         board[linha][coluna] = 1;
         testeglobal = 0;
@@ -39,7 +39,6 @@ if (typeof kotlin === 'undefined') {
         if (vsJarvis && !fimDeJogo()) {
           jarvis();
         }} else {
-        println('Jogador 2 jogou');
         testeglobal = 1;
         botao.innerHTML = 'O';
         board[linha][coluna] = -1;
@@ -49,9 +48,9 @@ if (typeof kotlin === 'undefined') {
       }
     if (fimDeJogo()) {
       desabilitaBts(0);
-      if (glob) {
-        vencedor(linha, coluna, vsJarvis);
-        glob = false;
+      if (status != null) {
+        if (contains(status.innerHTML, '!') === false)
+          vencedor(linha, coluna, vsJarvis);
       }var restart = document.getElementById('botaoRestart');
       if (restart != null)
         restart.innerHTML = '\n' + '                <button onclick=' + '"' + 'main.resetaBoard(0, 0, ' + vsJarvis + ')' + '"' + '>Jogar novamente<\/button>' + '\n' + '                <button onclick=' + '"' + 'main.resetaBoardGOTOMENU(0, 0)' + '"' + '>Voltar ao menu<\/button>' + '\n' + '            ';
@@ -59,11 +58,9 @@ if (typeof kotlin === 'undefined') {
   var glob;
   function vencedor(linha, coluna, vsJarvis) {
     var status = document.getElementById('status');
-    println('' + toString(linha) + toString(coluna));
     if (status != null) {
       if (verifica()) {
         if (board[linha][coluna] === 1) {
-          println('O jogador 1 venceu!');
           status.innerHTML = 'O jogador 1 venceu!';
         } else {
           if (!vsJarvis)
@@ -176,10 +173,10 @@ if (typeof kotlin === 'undefined') {
           bestMoveID = i;
       }
       bestMoveID = 'b' + bestMoveID;
-      var move = Kotlin.isType(tmp$_0 = document.getElementsByClassName('bts').item(auxiliar(bestMoveID)), HTMLButtonElement) ? tmp$_0 : throwCCE();
+      var move = Kotlin.isType(tmp$_0 = document.getElementsByClassName('bts').item(auxiliarCasting(bestMoveID)), HTMLButtonElement) ? tmp$_0 : throwCCE();
       move.click();
     }}
-  function auxiliar(s) {
+  function auxiliarCasting(s) {
     for (var i = 0; i <= 9; i++) {
       var doc = document.getElementsByClassName('bts').item(i);
       if (doc != null)
@@ -202,19 +199,48 @@ if (typeof kotlin === 'undefined') {
     var linha = (id.charCodeAt(0) | 0) - 48 | 0;
     var col = (id.charCodeAt(1) | 0) - 48 | 0;
     var score = 0;
+    var teste = positionIsVital(linha, col);
+    println('Posi\xE7\xE3o ' + linha + ' ' + col + ' \xE9 vital? ' + teste);
     if (linha === 1 && col === 1) {
       score = score + 2 | 0;
       if (positionHasEnemyAtDiagonal(linha, col))
         score = score - 2 | 0;
+      if (positionIsVital(linha, col))
+        score = score + 4 | 0;
     } else if (linha === col || (linha === 0 && col === 2) || (linha === 2 && col === 0)) {
       score = score + 1 | 0;
+      if (positionIsVital(linha, col))
+        score = score + 4 | 0;
       if (positionHasEnemyAtDiagonal(linha, col))
         score = score - 2 | 0;
     } else {
       if (positionHasEnemyAtLine(linha, 0) || positionHasEnemyAtColumn(0, col)) {
+        if (positionIsVital(linha, col))
+          score = score + 4 | 0;
         score = score - 2 | 0;
       }}
     return score;
+  }
+  function positionIsVital(linha, col) {
+    var r1 = contabilizaLinha(linha, 0, 0);
+    var r2 = contabilizaColuna(0, col, 0);
+    if (r1 === 2 || r2 === -2) {
+      return true;
+    }if (r2 === 2 || r2 === -2)
+      return true;
+    return false;
+  }
+  function contabilizaLinha(linha, col, res) {
+    if (col < 2) {
+      var x = board[linha][col];
+      return contabilizaLinha(linha, col + 1 | 0, x + res | 0);
+    }return res;
+  }
+  function contabilizaColuna(linha, col, res) {
+    if (linha < 2) {
+      var x = board[linha][col];
+      return contabilizaColuna(linha + 1 | 0, col, x + res | 0);
+    }return res;
   }
   function positionHasEnemyAtLine(linha, col) {
     if (board[linha][col] === 1)
@@ -283,9 +309,12 @@ if (typeof kotlin === 'undefined') {
   _.verificaVelha = verificaVelha;
   _.desabilitaBts = desabilitaBts;
   _.jarvis = jarvis;
-  _.auxiliar = auxiliar;
+  _.auxiliarCasting = auxiliarCasting;
   _.verificaEspacos = verificaEspacos;
   _.jarvisBoardAnalysis = jarvisBoardAnalysis;
+  _.positionsIsVital = positionIsVital;
+  _.contabilizaLinha = contabilizaLinha;
+  _.contabilizaColuna = contabilizaColuna;
   _.positionHasEnemyAtLine = positionHasEnemyAtLine;
   _.positionHasEnemyAtColumn = positionHasEnemyAtColumn;
   _.positionHasEnemyAtDiagonal = positionHasEnemyAtDiagonal;
