@@ -30,8 +30,9 @@
             </fieldset>
             
             <div class="opcoes">    
-                <div class="botoes"></div>
-                <button class="botao" onclick="main.jogar(); document.getElementById('player').play()">Jogar contra um amigo</button>
+                <div> id="botoes">
+                <button class="botao" onclick="main.jogar(false); document.getElementById('player').play()">Jogar contra um amigo</button>
+                <button class="botao" onclick="main.jogar(true); document.getElementById('player').play()">Jogar contra Jarvis</button>
                 </div>       
             </div>
 

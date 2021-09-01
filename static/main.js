@@ -6,23 +6,33 @@ if (typeof kotlin === 'undefined') {
   var split = Kotlin.kotlin.text.split_o64adg$;
   var toBoxedChar = Kotlin.toBoxedChar;
   var equals = Kotlin.equals;
+  var toString = Kotlin.toString;
+  var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_287e2$;
   var board;
-  function jogar() {
-    var status = document.getElementById('status');
+  function jogar(vsJarvis) {
+    var options = document.getElementById('botoes');
+    if (options != null) {
+      options.innerHTML = '';
+    }var status = document.getElementById('status');
     if (status != null)
       status.innerHTML = 'Vez de jogador 1(X)';
     var tabuleiro = document.getElementById('tabuleiro');
     if (tabuleiro != null)
-      tabuleiro.innerHTML = '\n        <html>\n        <table>\n                <tr>\n                    <td><button class="bts" id="b00" onclick="main.botaoPressionado(id)" value="0">00<\/button><\/td>\n                    <td><button class="bts" id="b01" onclick="main.botaoPressionado(id)" value="0">01<\/button><\/td>\n                    <td><button class="bts" id="b02" onclick="main.botaoPressionado(id)" value="0">02<\/button><\/td>\n                <\/tr>\n                <tr>\n                    <td><button class="bts" id="b10" onclick="main.botaoPressionado(id)" value="0">10<\/button><\/td>\n                    <td><button class="bts" id="b11" onclick="main.botaoPressionado(id)" value="0">11<\/button><\/td>\n                    <td><button class="bts" id="b12" onclick="main.botaoPressionado(id)" value="0">12<\/button><\/td>\n                <\/tr>\n                <tr>\n                    <td><button class="bts" id="b20" onclick="main.botaoPressionado(id)" value="0">20<\/button><\/td>\n                    <td><button class="bts" id="b21" onclick="main.botaoPressionado(id)" value="0">21<\/button><\/td>\n                    <td><button class="bts" id="b22" onclick="main.botaoPressionado(id)" value="0">22<\/button><\/td>\n                <\/tr>\n            <\/table>\n        <\/html> \n        ';
+      tabuleiro.innerHTML = '\n' + '        <html>' + '\n' + '        <table>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b00' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>00<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b01' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>01<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b02' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>02<\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b10' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>10<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b11' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>11<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b12' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>12<\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b20' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>20<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b21' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>21<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b22' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>22<\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '            <\/table>' + '\n' + '        <\/html> ' + '\n' + '        ';
   }
   var testeglobal;
-  function botaoPressionado(id) {
+  function botaoPressionado(id, vsJarvis) {
     var tmp$;
     var status = document.getElementById('status');
     if (status != null)
       if (testeglobal === 1)
-        status.innerHTML = 'Vez de jogador 2(O)';
-      else
+        if (vsJarvis) {
+          jarvis();
+          status.innerHTML = 'Vez de Jarvis (O)';
+        } else {
+          status.innerHTML = 'Vez de jogador 2(O)';
+        }
+       else
         status.innerHTML = 'Vez de jogador 1(X)';
     var botao = Kotlin.isType(tmp$ = document.getElementById(id), HTMLButtonElement) ? tmp$ : throwCCE();
     if (botao.disabled === false)
@@ -41,15 +51,22 @@ if (typeof kotlin === 'undefined') {
       desabilitaBts(0);
       var restart = document.getElementById('botaoRestart');
       if (restart != null)
-        restart.innerHTML = '\n                <button onclick="main.resetaBoard(0, 0)">Jogar novamente<\/button>\n            ';
+        restart.innerHTML = '\n' + '                <button onclick=' + '"' + 'main.resetaBoard(0, 0, ' + vsJarvis + ')' + '"' + '>Jogar novamente<\/button>' + '\n' + '                <button onclick=' + '"' + 'resetaBoardGOTOMENU(0, 0)' + '"' + '>Voltar ao menu<\/button>' + '\n' + '            ';
     }}
-  function resetaBoard(linha, col) {
+  function resetaBoardGOTOMENU(linha, col) {
     if (col <= 2 && linha <= 2) {
       board[linha][col] = 0;
-      resetaBoard(linha + 1 | 0, col);
+      resetaBoardGOTOMENU(linha + 1 | 0, col);
     } else if (col <= 2) {
-      resetaBoard(0, col + 1 | 0);
-    }jogar();
+      resetaBoardGOTOMENU(0, col + 1 | 0);
+    }}
+  function resetaBoard(linha, col, vsJarvis) {
+    if (col <= 2 && linha <= 2) {
+      board[linha][col] = 0;
+      resetaBoard(linha + 1 | 0, col, vsJarvis);
+    } else if (col <= 2) {
+      resetaBoard(0, col + 1 | 0, vsJarvis);
+    }jogar(vsJarvis);
   }
   function fimDeJogo() {
     var status = document.getElementById('status');
@@ -64,7 +81,7 @@ if (typeof kotlin === 'undefined') {
     } else {
       if (verificaVelha(0)) {
         if (status != null)
-          status.innerHTML = 'Empate!';
+          status.innerHTML = 'Deu velha!';
         return true;
       }}
     return false;
@@ -122,6 +139,82 @@ if (typeof kotlin === 'undefined') {
         doc.disabled = true;
       desabilitaBts(i + 1 | 0);
     }}
+  function jarvis() {
+    var tmp$, tmp$_0;
+    var possiblePositions = ArrayList_init();
+    var bestMoveID = '';
+    var score = 0;
+    tmp$ = possiblePositions.iterator();
+    while (tmp$.hasNext()) {
+      var i = tmp$.next();
+      if (jarvisBoardAnalysis(i) > score)
+        bestMoveID = i;
+    }
+    bestMoveID = 'b' + bestMoveID;
+    var move = Kotlin.isType(tmp$_0 = document.getElementById(bestMoveID), HTMLButtonElement) ? tmp$_0 : throwCCE();
+    if (move != null)
+      move.click();
+  }
+  function verificaEspacos(linha, col, list) {
+    if (col <= 2 && linha <= 2) {
+      if (board[linha][col] === 0) {
+        list.add_11rb$('' + toString(linha) + toString(col));
+      }return verificaEspacos(linha + 1 | 0, col, list);
+    } else if (col <= 2) {
+      return verificaEspacos(0, col + 1 | 0, list);
+    } else
+      return list;
+  }
+  function jarvisBoardAnalysis(id) {
+    var linha = (id.charCodeAt(0) | 0) - 48 | 0;
+    var col = (id.charCodeAt(1) | 0) - 48 | 0;
+    var score = 0;
+    if (linha === 1 && col === 1) {
+      score = score + 2 | 0;
+      if (positionHasEnemyAtDiagonal(linha, col))
+        score = score - 2 | 0;
+    } else if (linha === col || (linha === 0 && col === 2) || (linha === 2 && col === 0)) {
+      score = score + 1 | 0;
+      if (positionHasEnemyAtDiagonal(linha, col))
+        score = score - 2 | 0;
+    } else {
+      if (positionHasEnemyAtLine(linha, 0) || positionHasEnemyAtColumn(0, col)) {
+        score = score - 2 | 0;
+      }}
+    return score;
+  }
+  function positionHasEnemyAtLine(linha, col) {
+    if (board[linha][col] === 1)
+      return true;
+    else if (col <= 2)
+      return positionHasEnemyAtLine(linha, col + 1 | 0);
+    return false;
+  }
+  function positionHasEnemyAtColumn(linha, col) {
+    if (board[linha][col] === 1)
+      return true;
+    else if (linha <= 2)
+      return positionHasEnemyAtColumn(linha + 1 | 0, col);
+    return false;
+  }
+  function positionHasEnemyAtDiagonal(linha, col) {
+    if (linha === 1 || col === 1) {
+      if (board[0][0] === 1 || board[2][2] === 1 || board[0][2] === 1 || board[2][0] === 1)
+        return true;
+      else
+        return false;
+    } else if (linha === col) {
+      if (board[0][0] === 1 || board[1][1] === 1 || board[2][2] === 1)
+        return true;
+      else
+        return false;
+    } else {
+      if (board[0][2] === 1 || board[1][1] === 1 || board[2][0] === 1)
+        return true;
+      else
+        return false;
+    }
+  }
   Object.defineProperty(_, 'board', {
     get: function () {
       return board;
@@ -137,6 +230,7 @@ if (typeof kotlin === 'undefined') {
     }
   });
   _.botaoPressionado = botaoPressionado;
+  _.resetaBoardGOTOMENU = resetaBoardGOTOMENU;
   _.resetaBoard = resetaBoard;
   _.fimDeJogo = fimDeJogo;
   _.verifica = verifica;
@@ -145,6 +239,12 @@ if (typeof kotlin === 'undefined') {
   _.verificaDiagonais = verificaDiagonais;
   _.verificaVelha = verificaVelha;
   _.desabilitaBts = desabilitaBts;
+  _.jarvis = jarvis;
+  _.verificaEspacos = verificaEspacos;
+  _.jarvisBoardAnalysis = jarvisBoardAnalysis;
+  _.positionHasEnemyAtLine = positionHasEnemyAtLine;
+  _.positionHasEnemyAtColumn = positionHasEnemyAtColumn;
+  _.positionHasEnemyAtDiagonal = positionHasEnemyAtDiagonal;
   board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
   testeglobal = 1;
   Kotlin.defineModule('main', _);
