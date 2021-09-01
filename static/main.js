@@ -169,7 +169,7 @@ if (typeof kotlin === 'undefined') {
       tmp$ = possiblePositions.iterator();
       while (tmp$.hasNext()) {
         var i = tmp$.next();
-        if (jarvisBoardAnalysis(i) >= score)
+        if (jarvisBoardAnalysis(i) > score)
           bestMoveID = i;
       }
       bestMoveID = 'b' + bestMoveID;
@@ -201,22 +201,18 @@ if (typeof kotlin === 'undefined') {
     var score = 0;
     var teste = positionIsVital(linha, col);
     println('Posi\xE7\xE3o ' + linha + ' ' + col + ' \xE9 vital? ' + teste);
+    if (positionIsVital(linha, col))
+      score = score + 5 | 0;
     if (linha === 1 && col === 1) {
       score = score + 2 | 0;
       if (positionHasEnemyAtDiagonal(linha, col))
         score = score - 2 | 0;
-      if (positionIsVital(linha, col))
-        score = score + 4 | 0;
     } else if (linha === col || (linha === 0 && col === 2) || (linha === 2 && col === 0)) {
       score = score + 1 | 0;
-      if (positionIsVital(linha, col))
-        score = score + 4 | 0;
       if (positionHasEnemyAtDiagonal(linha, col))
         score = score - 2 | 0;
     } else {
       if (positionHasEnemyAtLine(linha, 0) || positionHasEnemyAtColumn(0, col)) {
-        if (positionIsVital(linha, col))
-          score = score + 4 | 0;
         score = score - 2 | 0;
       }}
     return score;
@@ -230,14 +226,17 @@ if (typeof kotlin === 'undefined') {
       return true;
     return false;
   }
+  function contabilizaDiagonal(linha, col, res) {
+    return 0;
+  }
   function contabilizaLinha(linha, col, res) {
-    if (col < 2) {
+    if (col <= 2) {
       var x = board[linha][col];
       return contabilizaLinha(linha, col + 1 | 0, x + res | 0);
     }return res;
   }
   function contabilizaColuna(linha, col, res) {
-    if (linha < 2) {
+    if (linha <= 2) {
       var x = board[linha][col];
       return contabilizaColuna(linha + 1 | 0, col, x + res | 0);
     }return res;
@@ -313,6 +312,7 @@ if (typeof kotlin === 'undefined') {
   _.verificaEspacos = verificaEspacos;
   _.jarvisBoardAnalysis = jarvisBoardAnalysis;
   _.positionsIsVital = positionIsVital;
+  _.contabilizaDiagonal = contabilizaDiagonal;
   _.contabilizaLinha = contabilizaLinha;
   _.contabilizaColuna = contabilizaColuna;
   _.positionHasEnemyAtLine = positionHasEnemyAtLine;

@@ -230,13 +230,12 @@ fun desabilitaBts(i: Int){
 @JsName("jarvis")
 fun jarvis(){
     var possiblePositions: MutableList<String> = mutableListOf()
-    //var bestMoveID:String = ""
     var score:Int = 0
     possiblePositions = verificaEspacos(0, 0, possiblePositions)
     if(possiblePositions.size > 0){
         var bestMoveID = possiblePositions[0]
         for(i in possiblePositions){
-            if (jarvisBoardAnalysis(i) >= score)
+            if (jarvisBoardAnalysis(i) > score)
                bestMoveID = i
         }
         bestMoveID = "b" + bestMoveID
@@ -280,22 +279,18 @@ fun jarvisBoardAnalysis(id: String):Int{
     var score:Int = 0
     val teste = positionIsVital(linha, col)
     println("Posição $linha $col é vital? $teste")
+    if(positionIsVital(linha, col))
+        score += 5
     if(linha == 1 && col == 1){
         score += 2
         if(positionHasEnemyAtDiagonal(linha, col))
             score -=2
-        if(positionIsVital(linha, col))
-            score +=4
     } else if(linha == col || (linha == 0 && col == 2) || (linha == 2 && col == 0)){
         score += 1
-        if(positionIsVital(linha,col))
-            score +=4
         if(positionHasEnemyAtDiagonal(linha, col))
             score -=2
     } else{
         if(positionHasEnemyAtLine(linha, 0) || positionHasEnemyAtColumn(0, col)){
-            if(positionIsVital(linha, col))
-                score +=4
             score -= 2
         } 
     }
@@ -303,31 +298,37 @@ fun jarvisBoardAnalysis(id: String):Int{
 }
 
 @JsName("positionsIsVital")
-fun positionIsVital(linha: Int, col: Int): Boolean{
+fun positionIsVital(linha: Int, col: Int): Boolean{  // se alguém ganhar ao escolher a posição, ela é vital
     val r1 = contabilizaLinha(linha, 0, 0)
     val r2 = contabilizaColuna(0, col, 0)
-  //  println("Valor de $linha $col (linha): $r1")
-  //  println("Valor de $linha $col (coluna): $r2")
-    if(r1 == 2 || r2 == -2){
+    if(r1 == 2 || r2 == -2){  
         return true
     }
     if(r2 == 2 || r2 == -2)
         return true
+   // if(linha == col || (linha == 0 && col == 2) || (linha == 2 && col == 0))
+   //     contabilizaDiagonal(linha, col, 0)
     return false
+    
+}
+
+@JsName("contabilizaDiagonal")
+fun contabilizaDiagonal(linha: Int, col: Int, res: Int): Int{  
+    return 0
 }
 
 @JsName("contabilizaLinha")
-fun contabilizaLinha(linha: Int, col: Int, res: Int): Int{
-    if(col < 2){
-        val x = board[linha][col]
+fun contabilizaLinha(linha: Int, col: Int, res: Int): Int{   // retorna o somatório da linha
+    if(col <= 2){
+        val x = board[linha][col] 
         return contabilizaLinha(linha, col + 1, x + res)
     }
     return res
 }
 
 @JsName("contabilizaColuna")
-fun contabilizaColuna(linha: Int, col: Int, res: Int): Int {
-    if(linha < 2){
+fun contabilizaColuna(linha: Int, col: Int, res: Int): Int { // retorna o somatório da coluna
+    if(linha <= 2){
         val x = board[linha][col]
         return contabilizaColuna(linha + 1, col, x + res)
     }
