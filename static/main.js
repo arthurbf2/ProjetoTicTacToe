@@ -2,15 +2,14 @@ if (typeof kotlin === 'undefined') {
   throw new Error("Error loading module 'main'. Its dependency 'kotlin' was not found. Please, check whether 'kotlin' is loaded prior to 'main'.");
 }var main = function (_, Kotlin) {
   'use strict';
-  var print = Kotlin.kotlin.io.print_s8jyv4$;
   var throwCCE = Kotlin.throwCCE;
-  var split = Kotlin.kotlin.text.split_o64adg$;
-  var toBoxedChar = Kotlin.toBoxedChar;
-  var equals = Kotlin.equals;
+  var println = Kotlin.kotlin.io.println_s8jyv4$;
   var toString = Kotlin.toString;
+  var equals = Kotlin.equals;
   var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_287e2$;
   var board;
   function jogar(vsJarvis) {
+    testeglobal = 1;
     var options = document.getElementById('botoes');
     if (options != null) {
       options.innerHTML = '';
@@ -18,43 +17,62 @@ if (typeof kotlin === 'undefined') {
     if (status != null)
       status.innerHTML = 'Vez de jogador 1(X)';
     var tabuleiro = document.getElementById('tabuleiro');
-    if (tabuleiro != null)
+    if (tabuleiro != null) {
       tabuleiro.innerHTML = '\n' + '        <html>' + '\n' + '        <table>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b00' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>00<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b01' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>01<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b02' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>02<\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b10' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>10<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b11' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>11<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b12' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>12<\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b20' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>20<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b21' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>21<\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b22' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '>22<\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '            <\/table>' + '\n' + '        <\/html> ' + '\n' + '        ';
-  }
+    }}
   var testeglobal;
   function botaoPressionado(id, vsJarvis) {
     var tmp$;
-    print(jarvisBoardAnalysis('11'));
     var status = document.getElementById('status');
-    if (status != null)
-      if (testeglobal === 1) {
-        if (vsJarvis) {
-          testeglobal = testeglobal - 1 | 0;
-          jarvis();
-          status.innerHTML = 'Vez de Jarvis (O)';
-        } else {
-          status.innerHTML = 'Vez de jogador 2(O)';
-        }
-      } else
-        status.innerHTML = 'Vez de jogador 1(X)';
     var botao = Kotlin.isType(tmp$ = document.getElementById(id), HTMLButtonElement) ? tmp$ : throwCCE();
+    var linha = (id.charCodeAt(1) | 0) - 48 | 0;
+    var coluna = (id.charCodeAt(2) | 0) - 48 | 0;
     if (botao.disabled === false)
       if (testeglobal === 1) {
+        println('Jogador 1 jogou');
         botao.innerHTML = 'X';
-        board[(id.charCodeAt(1) | 0) - 48 | 0][(id.charCodeAt(2) | 0) - 48 | 0] = 1;
-        testeglobal = testeglobal - 1 | 0;
+        board[linha][coluna] = 1;
+        testeglobal = 0;
         botao.disabled = true;
-      } else {
+        if (status != null)
+          status.innerHTML = 'Vez de jogador 2(O)';
+        if (vsJarvis && !fimDeJogo()) {
+          jarvis();
+        }} else {
+        println('Jogador 2 jogou');
+        testeglobal = 1;
         botao.innerHTML = 'O';
-        board[(id.charCodeAt(1) | 0) - 48 | 0][(id.charCodeAt(2) | 0) - 48 | 0] = -1;
-        testeglobal = testeglobal + 1 | 0;
+        board[linha][coluna] = -1;
         botao.disabled = true;
+        if (status != null)
+          status.innerHTML = 'Vez de jogador 1(X)';
       }
     if (fimDeJogo()) {
       desabilitaBts(0);
-      var restart = document.getElementById('botaoRestart');
+      if (glob) {
+        vencedor(linha, coluna, vsJarvis);
+        glob = false;
+      }var restart = document.getElementById('botaoRestart');
       if (restart != null)
         restart.innerHTML = '\n' + '                <button onclick=' + '"' + 'main.resetaBoard(0, 0, ' + vsJarvis + ')' + '"' + '>Jogar novamente<\/button>' + '\n' + '                <button onclick=' + '"' + 'resetaBoardGOTOMENU(0, 0)' + '"' + '>Voltar ao menu<\/button>' + '\n' + '            ';
+    }}
+  var glob;
+  function vencedor(linha, coluna, vsJarvis) {
+    var status = document.getElementById('status');
+    println('' + toString(linha) + toString(coluna));
+    if (status != null) {
+      if (verifica()) {
+        if (board[linha][coluna] === 1) {
+          println('O jogador 1 venceu!');
+          status.innerHTML = 'O jogador 1 venceu!';
+        } else {
+          if (!vsJarvis)
+            status.innerHTML = 'O jogador 2 venceu!';
+          else
+            status.innerHTML = 'Jarvis ganhou!!!!!!';
+        }
+      } else if (verificaVelha(0))
+        status.innerHTML = 'Deu Velha!';
     }}
   function resetaBoardGOTOMENU(linha, col) {
     if (col <= 2 && linha <= 2) {
@@ -72,22 +90,7 @@ if (typeof kotlin === 'undefined') {
     }jogar(vsJarvis);
   }
   function fimDeJogo() {
-    var status = document.getElementById('status');
-    if (verifica()) {
-      if (status != null) {
-        var s = split(status.innerHTML, Kotlin.charArrayOf(40));
-        if (equals(toBoxedChar(s.get_za3lpa$(1).charCodeAt(0)), toBoxedChar(88)))
-          status.innerHTML = 'O jogador 2 venceu!';
-        else
-          status.innerHTML = 'O jogador 1 venceu!';
-      }return true;
-    } else {
-      if (verificaVelha(0)) {
-        if (status != null)
-          status.innerHTML = 'Deu velha!';
-        return true;
-      }}
-    return false;
+    return verifica() || verificaVelha(0);
   }
   function verifica() {
     if (verificaDiagonais())
@@ -143,22 +146,22 @@ if (typeof kotlin === 'undefined') {
       desabilitaBts(i + 1 | 0);
     }}
   function jarvis() {
-    var tmp$, tmp$_0, tmp$_1;
+    var tmp$, tmp$_0;
     var possiblePositions = ArrayList_init();
-    var bestMoveID = '';
     var score = 0;
     possiblePositions = verificaEspacos(0, 0, possiblePositions);
-    tmp$ = possiblePositions.iterator();
-    while (tmp$.hasNext()) {
-      var i = tmp$.next();
-      var doc = Kotlin.isType(tmp$_0 = document.getElementsByClassName('bts').item(auxiliar('b' + i)), HTMLButtonElement) ? tmp$_0 : throwCCE();
-      if (jarvisBoardAnalysis(i) > score && equals(doc.value, '0'))
-        bestMoveID = i;
-    }
-    bestMoveID = 'b' + bestMoveID;
-    var move = Kotlin.isType(tmp$_1 = document.getElementsByClassName('bts').item(auxiliar(bestMoveID)), HTMLButtonElement) ? tmp$_1 : throwCCE();
-    move.click();
-  }
+    if (possiblePositions.size > 0) {
+      var bestMoveID = possiblePositions.get_za3lpa$(0);
+      tmp$ = possiblePositions.iterator();
+      while (tmp$.hasNext()) {
+        var i = tmp$.next();
+        if (jarvisBoardAnalysis(i) >= score)
+          bestMoveID = i;
+      }
+      bestMoveID = 'b' + bestMoveID;
+      var move = Kotlin.isType(tmp$_0 = document.getElementsByClassName('bts').item(auxiliar(bestMoveID)), HTMLButtonElement) ? tmp$_0 : throwCCE();
+      move.click();
+    }}
   function auxiliar(s) {
     for (var i = 0; i <= 9; i++) {
       var doc = document.getElementsByClassName('bts').item(i);
@@ -199,14 +202,14 @@ if (typeof kotlin === 'undefined') {
   function positionHasEnemyAtLine(linha, col) {
     if (board[linha][col] === 1)
       return true;
-    else if (col <= 2)
+    else if (col < 2)
       return positionHasEnemyAtLine(linha, col + 1 | 0);
     return false;
   }
   function positionHasEnemyAtColumn(linha, col) {
     if (board[linha][col] === 1)
       return true;
-    else if (linha <= 2)
+    else if (linha < 2)
       return positionHasEnemyAtColumn(linha + 1 | 0, col);
     return false;
   }
@@ -243,6 +246,15 @@ if (typeof kotlin === 'undefined') {
     }
   });
   _.botaoPressionado = botaoPressionado;
+  Object.defineProperty(_, 'glob', {
+    get: function () {
+      return glob;
+    },
+    set: function (value) {
+      glob = value;
+    }
+  });
+  _.vencedor = vencedor;
   _.resetaBoardGOTOMENU = resetaBoardGOTOMENU;
   _.resetaBoard = resetaBoard;
   _.fimDeJogo = fimDeJogo;
@@ -261,6 +273,7 @@ if (typeof kotlin === 'undefined') {
   _.positionHasEnemyAtDiagonal = positionHasEnemyAtDiagonal;
   board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
   testeglobal = 1;
+  glob = true;
   Kotlin.defineModule('main', _);
   return _;
 }(typeof main === 'undefined' ? {} : main, kotlin);

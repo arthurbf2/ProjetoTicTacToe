@@ -2,10 +2,12 @@ import kotlinx.browser.*
 import org.w3c.dom.*
 
 
+
 val board = arrayOf(arrayOf(0,0,0), arrayOf(0,0,0), arrayOf(0,0,0))
 
 @JsName("jogar")
 fun jogar(vsJarvis: Boolean) {
+    testeglobal = 1
     val options = document.getElementById("botoes")
     if(options != null){
         options.innerHTML = ""
@@ -14,7 +16,7 @@ fun jogar(vsJarvis: Boolean) {
     if(status != null)
         status.innerHTML = "Vez de jogador 1(X)"
     val tabuleiro = document.getElementById("tabuleiro")
-    if (tabuleiro!= null)
+    if (tabuleiro!= null){
         tabuleiro.innerHTML = """
         <html>
         <table>
@@ -36,6 +38,7 @@ fun jogar(vsJarvis: Boolean) {
             </table>
         </html> 
         """
+    }
 }
 
 var testeglobal: Int = 1 
@@ -43,38 +46,65 @@ var testeglobal: Int = 1
 @JsName("botaoPressionado")
 fun botaoPressionado(id:String, vsJarvis: Boolean){
     val status = document.getElementById("status")
-    if(status != null)
-        if(testeglobal == 1){
-            if(vsJarvis){
-                testeglobal -=1
-                jarvis()
-                status.innerHTML = "Vez de Jarvis (O)"
-            }else{
-                status.innerHTML = "Vez de jogador 2(O)"
-            }
-        }else    
-            status.innerHTML = "Vez de jogador 1(X)"
-    val botao = document.getElementById(id) as HTMLButtonElement 
+    val botao = document.getElementById(id) as HTMLButtonElement
+    val linha = id[1].code- 48
+    val coluna = id[2].code - 48
     if (botao.disabled == false) 
         if(testeglobal == 1){
+            println("Jogador 1 jogou")
             botao.innerHTML = "X"
-            board[id[1].code- 48][id[2].code - 48] = 1
-            testeglobal -= 1
+            board[linha][coluna] = 1
+            testeglobal = 0
             botao.disabled = true // desabilitar o botão
-        } else {
+            if(status != null)
+                status.innerHTML = "Vez de jogador 2(O)"
+            if(vsJarvis && !fimDeJogo()){
+                jarvis()
+            }
+        } else{
+            println("Jogador 2 jogou")
+            testeglobal = 1
             botao.innerHTML = "O"
-            board[id[1].code - 48][id[2].code - 48] = -1
-            testeglobal += 1
+            board[linha][coluna] = -1
             botao.disabled = true // desabilitar o botão 
+            if(status != null)
+                status.innerHTML = "Vez de jogador 1(X)"
         }
     if(fimDeJogo()){
         desabilitaBts(0)
+        if(glob) {
+            vencedor(linha, coluna, vsJarvis)
+            glob = false
+        }
         val restart = document.getElementById("botaoRestart")
         if(restart != null)
             restart.innerHTML = """
                 <button onclick="main.resetaBoard(0, 0, $vsJarvis)">Jogar novamente</button>
                 <button onclick="resetaBoardGOTOMENU(0, 0)">Voltar ao menu</button>
             """
+    }
+}
+var glob: Boolean = true
+@JsName("vencedor")
+fun vencedor(linha: Int, coluna: Int, vsJarvis: Boolean){
+    val status = document.getElementById("status")
+    println("" + linha + coluna)
+    if(status != null) {
+        if(verifica()) {
+            if(board[linha][coluna] == 1) {
+                println("O jogador 1 venceu!")
+                status.innerHTML = "O jogador 1 venceu!"
+            }
+            else{
+                if(!vsJarvis)
+                    status.innerHTML = "O jogador 2 venceu!"
+                else    
+                    status.innerHTML = "Jarvis ganhou!!!!!!"
+            }
+        }
+        else   
+            if(verificaVelha(0))
+                status.innerHTML = "Deu Velha!"
     }
 }
 
@@ -109,31 +139,12 @@ fun resetaBoard(linha: Int, col: Int, vsJarvis:Boolean){
     	if(col <= 2) {
         	resetaBoard(0, col + 1, vsJarvis) 
     } 
-
     jogar(vsJarvis)
-    
 }
 
 @JsName("fimDeJogo")
 fun fimDeJogo(): Boolean{
-    val status = document.getElementById("status")
-    if(verifica()){       
-        if(status != null){
-            val s = status.innerHTML.split('(') 
-            if(s[1][0].equals('X'))
-                status.innerHTML = "O jogador 2 venceu!"
-            else
-                status.innerHTML = "O jogador 1 venceu!"
-        }
-        return true
-    } else {
-        if(verificaVelha(0)) {
-            if(status != null)
-                status.innerHTML = "Deu velha!"
-        return true
-        }
-    }
-    return false
+    return (verifica() || verificaVelha(0))
 }
 
 @JsName("verifica")
@@ -210,18 +221,19 @@ fun desabilitaBts(i: Int){
 @JsName("jarvis")
 fun jarvis(){
     var possiblePositions: MutableList<String> = mutableListOf()
-    var bestMoveID:String = ""
+    //var bestMoveID:String = ""
     var score:Int = 0
     possiblePositions = verificaEspacos(0, 0, possiblePositions)
-    for(i in possiblePositions){
-        var doc = document.getElementsByClassName("bts").item(auxiliar("b"+i)) as HTMLButtonElement
-        if (jarvisBoardAnalysis(i) > score && doc.value.equals("0"))
-            bestMoveID = i
+    if(possiblePositions.size > 0){
+        var bestMoveID = possiblePositions[0]
+        for(i in possiblePositions){
+            if (jarvisBoardAnalysis(i) >= score)
+               bestMoveID = i
+        }
+        bestMoveID = "b" + bestMoveID
+        val move = document.getElementsByClassName("bts").item(auxiliar(bestMoveID)) as HTMLButtonElement
+        move.click()
     }
-
-    bestMoveID = "b" + bestMoveID
-    val move = document.getElementsByClassName("bts").item(auxiliar(bestMoveID)) as HTMLButtonElement
-    move.click()
 }
 
 @JsName("auxiliar")
@@ -255,8 +267,6 @@ fun jarvisBoardAnalysis(id: String):Int{
     val linha:Int = id[0].code - 48
     val col:Int = id[1].code - 48
     var score:Int = 0
-    // * Mais 02 pontos se a posição for a central;
-    //* Mais 01 ponto se a posição estiver nos quatro cantos da matriz;
     if(linha == 1 && col == 1){
         score += 2
         if(positionHasEnemyAtDiagonal(linha, col))
@@ -279,9 +289,8 @@ fun jarvisBoardAnalysis(id: String):Int{
 fun positionHasEnemyAtLine(linha: Int, col: Int):Boolean{
     if(board[linha][col] == 1)
         return true
-    else if(col <= 2)
-        return positionHasEnemyAtLine(linha, col + 1) 
-        
+    else if(col < 2)
+        return positionHasEnemyAtLine(linha, col + 1)         
     return false
 
 }
@@ -290,7 +299,7 @@ fun positionHasEnemyAtLine(linha: Int, col: Int):Boolean{
 fun positionHasEnemyAtColumn(linha: Int, col: Int):Boolean{
     if(board[linha][col] == 1)
         return true
-    else if(linha <= 2)
+    else if(linha < 2)
         return positionHasEnemyAtColumn(linha+1, col) 
     return false
 
@@ -316,35 +325,3 @@ fun positionHasEnemyAtDiagonal(linha: Int, col: Int): Boolean {
             return false
     }
 }
-
-
-/*@JsName("jarvisMove")
-fun jarvisMove(id:String){
-    val status = document.getElementById("status")
-    if(status != null)
-        if(testeglobal == 1)
-            status.innerHTML = "Vez de jogador 2(O)"
-        else    
-            status.innerHTML = "Vez de jogador 1(X)"
-    val botao = document.getElementById(id) as HTMLButtonElement 
-    if (botao.disabled == false)  // deixei a verificacao de nulo pq tava dando uns bugs
-        if(testeglobal == 1){
-            botao.innerHTML = "X"
-            board[id[1].code- 48][id[2].code - 48] = 1
-            testeglobal -= 1
-            botao.disabled = true // desabilitar o botão
-        } else {
-            botao.innerHTML = "O"
-            board[id[1].code - 48][id[2].code - 48] = -1
-            testeglobal += 1
-            botao.disabled = true // desabilitar o botão 
-        }
-    if(fimDeJogo()){
-        desabilitaBts(0)
-        val restart = document.getElementById("botaoRestart")
-        if(restart != null)
-            restart.innerHTML = """
-                <button onclick="main.resetaBoard(0, 0)">Jogar novamente</button>
-            """
-    }
-}*/
