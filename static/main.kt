@@ -38,25 +38,24 @@ fun jogar(vsJarvis: Boolean) {
         """
 }
 
-var testeglobal: Int = 1 // Sendo usada pra verificar a vez, depois trocar pelo nome do jogador
+var testeglobal: Int = 1 
 
 @JsName("botaoPressionado")
 fun botaoPressionado(id:String, vsJarvis: Boolean){
-
     val status = document.getElementById("status")
     if(status != null)
-        if(testeglobal == 1)
+        if(testeglobal == 1){
             if(vsJarvis){
+                testeglobal -=1
                 jarvis()
                 status.innerHTML = "Vez de Jarvis (O)"
             }else{
                 status.innerHTML = "Vez de jogador 2(O)"
             }
-            
-        else    
+        }else    
             status.innerHTML = "Vez de jogador 1(X)"
     val botao = document.getElementById(id) as HTMLButtonElement 
-    if (botao.disabled == false)  // deixei a verificacao de nulo pq tava dando uns bugs
+    if (botao.disabled == false) 
         if(testeglobal == 1){
             botao.innerHTML = "X"
             board[id[1].code- 48][id[2].code - 48] = 1
@@ -210,21 +209,32 @@ fun desabilitaBts(i: Int){
 
 @JsName("jarvis")
 fun jarvis(){
-    val possiblePositions: MutableList<String> = mutableListOf()
+    var possiblePositions: MutableList<String> = mutableListOf()
     var bestMoveID:String = ""
     var score:Int = 0
-    
-    for(i in possiblePositions)
-        if (jarvisBoardAnalysis(i) > score)
+    possiblePositions = verificaEspacos(0, 0, possiblePositions)
+    for(i in possiblePositions){
+        var doc = document.getElementsByClassName("bts").item(auxiliar("b"+i)) as HTMLButtonElement
+        if (jarvisBoardAnalysis(i) > score && doc.value.equals("0"))
             bestMoveID = i
+    }
 
     bestMoveID = "b" + bestMoveID
-    
-    val move = document.getElementById(bestMoveID) as HTMLButtonElement
-    if(move != null)
-        move.click()
-
+    val move = document.getElementsByClassName("bts").item(auxiliar(bestMoveID)) as HTMLButtonElement
+    move.click()
 }
+
+@JsName("auxiliar")
+fun auxiliar(s: String): Int{
+    for(i in 0..9){
+        val doc = document.getElementsByClassName("bts").item(i)
+        if(doc != null)
+            if(doc.id.equals(s))
+                return i
+    }
+    return 0
+}
+
 
 @JsName("verificaEspacos")
 fun verificaEspacos(linha: Int, col: Int, list: MutableList<String>): MutableList<String> {
@@ -282,7 +292,6 @@ fun positionHasEnemyAtColumn(linha: Int, col: Int):Boolean{
         return true
     else if(linha <= 2)
         return positionHasEnemyAtColumn(linha+1, col) 
-        
     return false
 
 }

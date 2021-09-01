@@ -2,6 +2,7 @@ if (typeof kotlin === 'undefined') {
   throw new Error("Error loading module 'main'. Its dependency 'kotlin' was not found. Please, check whether 'kotlin' is loaded prior to 'main'.");
 }var main = function (_, Kotlin) {
   'use strict';
+  var print = Kotlin.kotlin.io.print_s8jyv4$;
   var throwCCE = Kotlin.throwCCE;
   var split = Kotlin.kotlin.text.split_o64adg$;
   var toBoxedChar = Kotlin.toBoxedChar;
@@ -23,16 +24,18 @@ if (typeof kotlin === 'undefined') {
   var testeglobal;
   function botaoPressionado(id, vsJarvis) {
     var tmp$;
+    print(jarvisBoardAnalysis('11'));
     var status = document.getElementById('status');
     if (status != null)
-      if (testeglobal === 1)
+      if (testeglobal === 1) {
         if (vsJarvis) {
+          testeglobal = testeglobal - 1 | 0;
           jarvis();
           status.innerHTML = 'Vez de Jarvis (O)';
         } else {
           status.innerHTML = 'Vez de jogador 2(O)';
         }
-       else
+      } else
         status.innerHTML = 'Vez de jogador 1(X)';
     var botao = Kotlin.isType(tmp$ = document.getElementById(id), HTMLButtonElement) ? tmp$ : throwCCE();
     if (botao.disabled === false)
@@ -140,20 +143,30 @@ if (typeof kotlin === 'undefined') {
       desabilitaBts(i + 1 | 0);
     }}
   function jarvis() {
-    var tmp$, tmp$_0;
+    var tmp$, tmp$_0, tmp$_1;
     var possiblePositions = ArrayList_init();
     var bestMoveID = '';
     var score = 0;
+    possiblePositions = verificaEspacos(0, 0, possiblePositions);
     tmp$ = possiblePositions.iterator();
     while (tmp$.hasNext()) {
       var i = tmp$.next();
-      if (jarvisBoardAnalysis(i) > score)
+      var doc = Kotlin.isType(tmp$_0 = document.getElementsByClassName('bts').item(auxiliar('b' + i)), HTMLButtonElement) ? tmp$_0 : throwCCE();
+      if (jarvisBoardAnalysis(i) > score && equals(doc.value, '0'))
         bestMoveID = i;
     }
     bestMoveID = 'b' + bestMoveID;
-    var move = Kotlin.isType(tmp$_0 = document.getElementById(bestMoveID), HTMLButtonElement) ? tmp$_0 : throwCCE();
-    if (move != null)
-      move.click();
+    var move = Kotlin.isType(tmp$_1 = document.getElementsByClassName('bts').item(auxiliar(bestMoveID)), HTMLButtonElement) ? tmp$_1 : throwCCE();
+    move.click();
+  }
+  function auxiliar(s) {
+    for (var i = 0; i <= 9; i++) {
+      var doc = document.getElementsByClassName('bts').item(i);
+      if (doc != null)
+        if (equals(doc.id, s))
+          return i;
+    }
+    return 0;
   }
   function verificaEspacos(linha, col, list) {
     if (col <= 2 && linha <= 2) {
@@ -240,6 +253,7 @@ if (typeof kotlin === 'undefined') {
   _.verificaVelha = verificaVelha;
   _.desabilitaBts = desabilitaBts;
   _.jarvis = jarvis;
+  _.auxiliar = auxiliar;
   _.verificaEspacos = verificaEspacos;
   _.jarvisBoardAnalysis = jarvisBoardAnalysis;
   _.positionHasEnemyAtLine = positionHasEnemyAtLine;
