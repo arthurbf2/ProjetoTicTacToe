@@ -19,102 +19,132 @@ main{
     margin: 20px auto;
 }
 
-.jogadores{
-    width: 700px;
-    margin: 2em auto;
-}
-
-.jogadores div{
-    padding: 0.5em;
-}
-
-.jogador1{
-
-}
-
-.jogador1::before{
-    content: "X";
-}
-
-.jogador2{
-    
-}
-
-.jogador2::before{
-    content: "O";
-}
-
 .opcoes{
     margin: 5em auto;
     text-align: center;
 }
 
-.botao{
-    padding: 2em 65px;
-    width: 360px;
-    background-color: orange;
-    border: none;
-    border-radius: 5px;
-    font-size: medium;
+#botoes{
+    margin: 100px 5%;
 }
 
-.botao:hover{
+.botao{
+    padding: 2.3em 65px;
+    background-color: orange;
+    border: none;
+    border-radius: 10px;
+    font-size: medium;
+    width: 50%;
+    margin: 1em;
+    transition: 0.25s;
+}
+
+.botao:hover{ 
     cursor: pointer;
+    transform: scale(1.1);
+}
+
+#status{
+    font-size: 20px;
+    margin: 2em;
 }
 
 table{
+    width: 330px;
+    height: 330px;
     margin: 0 auto;
     border-style: none;
 }
 
 table button{
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     background-color: #FFFFFF;
-
+    color: transparent;   
 }
 
 table button:hover{
-    background-color: lightsteelblue;
-    /*background: lightsteelblue url('imagens/Círculo-PNG.png')*/
-    
+    background-color: lightsteelblue;    
 }
 
-#b00, #boo:disabled{
+#b00{
     border-style: solid;
     border-color: black;
     border-left: none;
     border-top: none;
 }
 
-#b01, #b01:disabled{
+#b00:disabled{
+    border-style: solid;
+    border-color: black;
+    border-left: none;
+    border-top: none;
+    color: black;
+}
+
+#b01{
     border-style: solid;
     border-color: black;
     border-top: none;
 }
 
-#b02, #b02:disabled{
+#b01:disabled{
+    border-style: solid;
+    border-color: black;
+    border-top: none;
+    color: black;
+}
+
+#b02{
     border-style: solid;
     border-color: black;
     border-top: none;
     border-right: none;
 }
 
-#b10, #b10:disabled{
+#b02:disabled{
+    border-style: solid;
+    border-color: black;
+    border-top: none;
+    border-right: none;
+    color: black;
+}
+
+#b10{
     border-style: solid;
     border-color: black;
     border-left: none;
 }
 
-#b11, #b11:disabled{
+#b10:disabled{
+    border-style: solid;
+    border-color: black;
+    border-left: none;
+    color: black;
+}
+
+#b11{
     border-style: solid;
     border-color: black;
 }
 
-#b12, #b12:disabled{
+#b11:disabled{
+    border-style: solid;
+    border-color: black;
+    color: black;
+}
+
+#b12{
     border-style: solid;
     border-color: black;
     border-right: none;
+}
+
+#b12:disabled{
+    border-style: solid;
+    border-color: black;
+    border-right: none;
+    color: black;
 }
 
 #b20, #b20:disabled{
@@ -124,17 +154,58 @@ table button:hover{
     border-left: none;
 }
 
-#b21, #b21:disabled{
+#b20:disabled{
+    border-style: solid;
+    border-color: black;
+    border-bottom: none;
+    border-left: none;
+    color: black;
+}
+
+#b21{
     border-style: solid;
     border-color: black;
     border-bottom: none;
 }
 
-#b22, #b22:disabled{
+#b21:disabled{
+    border-style: solid;
+    border-color: black;
+    border-bottom: none;
+    color: black;
+}
+
+#b22{
     border-style: solid;
     border-color: black;
     border-bottom: none;
     border-right: none;
+}
+
+#b22:disabled{
+    border-style: solid;
+    border-color: black;
+    border-bottom: none;
+    border-right: none;
+    color: black;
+}
+
+#botaoRestart{
+    margin: 2em;
+}
+
+#botaoRestart button{
+    padding: 8px 15px;
+    margin: 10px;
+    background-color: orange;
+    border-style: none;
+    border-radius: 10px;
+    transition: 0.25s;
+}
+
+#botaoRestart button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
 }
 
 .song-control{
