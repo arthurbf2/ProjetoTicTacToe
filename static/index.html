@@ -22,6 +22,7 @@
             <div id="botoes">
                 <button class="botao" onclick="main.jogar(false); document.getElementById('player').play()">Jogar contra um amigo</button>
                 <button class="botao" onclick="main.jogar(true); document.getElementById('player').play()">Jogar contra Jarvis</button>
+                <button class="botao" onclick="main.soundTrack()">Trilha sonora</button>
             </div>       
     
             <div id="status">
@@ -38,7 +39,7 @@
             </div>
 
 
-            <div class="song-control">
+            <div id="song-control" class="song-control">
                 
                 <button onclick="document.getElementById('player').play()"></button>
                 <button onclick="document.getElementById('player').pause()"></button>
@@ -46,14 +47,22 @@
                 <button onclick="document.getElementById('player').volume-=0.1"></button>
               </div>
 
-            <audio id="player" loop="loop" >
-                <source src="midia/Billy Goat Stomp - Joel Cummins.mp3" type="audio/mp3"/>
-            </audio>
+            <div class="songs">
+                <audio preload="none" id="player" loop="loop" >
+                    <source src="midia/My Favorite Things.mp3" type="audio/mp3"/>
+                </audio>
+    
+                <audio preload="none" id="billyGoat" loop="loop">
+                    <source src="midia/Billy Goat Stomp - Joel Cummins.mp3" type="audio/mp3">
+                </audio>
+            </div>
+            
+            
                 
             <script>
                 document.getElementById("player").volume = 0.1;                
             </script>
-              
+
         </main>
         
     </body>

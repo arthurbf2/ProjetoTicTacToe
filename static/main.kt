@@ -19,7 +19,7 @@ fun jogar(vsJarvis: Boolean) {
     if (tabuleiro!= null){
         tabuleiro.innerHTML = """
         <html>
-        <table>
+        <table class="table-jogo">
                 <tr>
                     <td><button class="bts" id="b00" onclick="main.botaoPressionado(id, $vsJarvis)" value="0"><img src="imagens/fundo_botao.png"></button></td>
                     <td><button class="bts" id="b01" onclick="main.botaoPressionado(id, $vsJarvis)" value="0"><img src="imagens/fundo_botao.png"></button></td>
@@ -126,6 +126,7 @@ fun reset(){
         options.innerHTML = """
         <button class="botao" onclick="main.jogar(false); document.getElementById('player').play()">Jogar contra um amigo</button>
         <button class="botao" onclick="main.jogar(true); document.getElementById('player').play()">Jogar contra Jarvis</button>
+        <button class="botao" onclick="main.soundTrack()">Trilha sonora</button>
         """
     }
     if(tabuleiro != null)
@@ -134,6 +135,7 @@ fun reset(){
         status.innerHTML = """ """
     if(restart != null)
         restart.innerHTML = """ """ 
+
 }
 
 @JsName("resetaBoard")
@@ -395,5 +397,45 @@ fun positionHasEnemyAtDiagonal(linha: Int, col: Int): Boolean {
             return true
         else
             return false
+    }
+}
+
+@JsName("soundTrack")
+fun soundTrack(){
+    val options = document.getElementById("botoes")
+    if(options != null){
+        options.innerHTML = """
+        """
+    }
+    val songControl = document.getElementById("song-control")
+    val restart = document.getElementById("botaoRestart")
+    if(songControl != null){
+        songControl.innerHTML = """
+
+            <h2>Escolha uma música</h2>
+            <ul>
+                <li><button value="billyGoat" onclick="main.songChosen(value)">BillyGoat</button></li>
+                <li><button value="player" onclick="main.songChosen(value)">My Favorite Things</button></li>
+            </ul>
+        """
+    }
+    if(restart != null){
+        restart.innerHTML="""
+        <button onclick="main.resetaBoardGOTOMENU(0, 0)">Voltar ao menu</button>
+        """
+    }
+
+}
+
+@JsName("songChosen")
+fun songChosen(song:String){
+    val songControl = document.getElementById("song-control")
+    if(songControl != null && song != null){
+        songControl.innerHTML = """
+        <button onclick="document.getElementById($song).play()"></button>
+        <button onclick="document.getElementById($song).pause()"></button>
+        <button onclick="document.getElementById($song).volume+=0.1"></button>
+        <button onclick="document.getElementById($song).volume-=0.1"></button>
+        """
     }
 }

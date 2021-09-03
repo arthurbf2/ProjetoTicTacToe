@@ -19,7 +19,7 @@ if (typeof kotlin === 'undefined') {
       status.innerHTML = 'Vez de jogador 1(X)';
     var tabuleiro = document.getElementById('tabuleiro');
     if (tabuleiro != null) {
-      tabuleiro.innerHTML = '\n' + '        <html>' + '\n' + '        <table>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b00' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b01' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b02' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b10' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b11' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b12' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b20' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b21' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b22' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '            <\/table>' + '\n' + '        <\/html> ' + '\n' + '        ';
+      tabuleiro.innerHTML = '\n' + '        <html>' + '\n' + '        <table class=' + '"' + 'table-jogo' + '"' + '>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b00' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b01' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b02' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b10' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b11' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b12' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '                <tr>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b20' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b21' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                    <td><button class=' + '"' + 'bts' + '"' + ' id=' + '"' + 'b22' + '"' + ' onclick=' + '"' + 'main.botaoPressionado(id, ' + vsJarvis + ')' + '"' + ' value=' + '"' + '0' + '"' + '><img src=' + '"' + 'imagens/fundo_botao.png' + '"' + '><\/button><\/td>' + '\n' + '                <\/tr>' + '\n' + '            <\/table>' + '\n' + '        <\/html> ' + '\n' + '        ';
     }}
   var testeglobal;
   function botaoPressionado(id, vsJarvis) {
@@ -84,7 +84,7 @@ if (typeof kotlin === 'undefined') {
     var status = document.getElementById('status');
     var restart = document.getElementById('botaoRestart');
     if (options != null) {
-      options.innerHTML = '\n        <button class="botao" onclick="main.jogar(false); document.getElementById(\'player\').play()">Jogar contra um amigo<\/button>\n        <button class="botao" onclick="main.jogar(true); document.getElementById(\'player\').play()">Jogar contra Jarvis<\/button>\n        ';
+      options.innerHTML = '\n        <button class="botao" onclick="main.jogar(false); document.getElementById(\'player\').play()">Jogar contra um amigo<\/button>\n        <button class="botao" onclick="main.jogar(true); document.getElementById(\'player\').play()">Jogar contra Jarvis<\/button>\n        <button class="botao" onclick="main.soundTrack()">Trilha sonora<\/button>\n        ';
     }if (tabuleiro != null)
       tabuleiro.innerHTML = ' ';
     if (status != null)
@@ -295,6 +295,22 @@ if (typeof kotlin === 'undefined') {
         return false;
     }
   }
+  function soundTrack() {
+    var options = document.getElementById('botoes');
+    if (options != null) {
+      options.innerHTML = '\n        ';
+    }var songControl = document.getElementById('song-control');
+    var restart = document.getElementById('botaoRestart');
+    if (songControl != null) {
+      songControl.innerHTML = '\n\n            <h2>Escolha uma m\xFAsica<\/h2>\n            <ul>\n                <li><button value="billyGoat" onclick="main.songChosen(value)">BillyGoat<\/button><\/li>\n                <li><button value="player" onclick="main.songChosen(value)">My Favorite Things<\/button><\/li>\n            <\/ul>\n        ';
+    }if (restart != null) {
+      restart.innerHTML = '\n        <button onclick="main.resetaBoardGOTOMENU(0, 0)">Voltar ao menu<\/button>\n        ';
+    }}
+  function songChosen(song) {
+    var songControl = document.getElementById('song-control');
+    if (songControl != null && song != null) {
+      songControl.innerHTML = '\n' + '        <button onclick=' + '"' + 'document.getElementById(' + song + ').play()' + '"' + '><\/button>' + '\n' + '        <button onclick=' + '"' + 'document.getElementById(' + song + ').pause()' + '"' + '><\/button>' + '\n' + '        <button onclick=' + '"' + 'document.getElementById(' + song + ').volume+=0.1' + '"' + '><\/button>' + '\n' + '        <button onclick=' + '"' + 'document.getElementById(' + song + ').volume-=0.1' + '"' + '><\/button>' + '\n' + '        ';
+    }}
   Object.defineProperty(_, 'board', {
     get: function () {
       return board;
@@ -332,6 +348,8 @@ if (typeof kotlin === 'undefined') {
   _.positionHasEnemyAtLine = positionHasEnemyAtLine;
   _.positionHasEnemyAtColumn = positionHasEnemyAtColumn;
   _.positionHasEnemyAtDiagonal = positionHasEnemyAtDiagonal;
+  _.soundTrack = soundTrack;
+  _.songChosen = songChosen;
   board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
   testeglobal = 1;
   Kotlin.defineModule('main', _);

@@ -61,14 +61,14 @@ main{
     font-weight: bold;
 }
 
-table{
+.table-jogo{
     width: 450px;
     height: 450px;
     margin: 0 auto;
     border-style: none;
 }
 
-table button{
+.table-jogo button{
     border-radius: 10px;
     border-width: 3px;
     font-size: 50px;
@@ -78,7 +78,7 @@ table button{
     color:transparent;
 }
 
-table button:hover{
+.table-jogo button:hover{
     cursor: pointer;
     border-style: solid;
     border-width: 2px;
@@ -294,4 +294,8 @@ table button:hover{
 
 .song-control button:nth-child(4){
     background: url(imagens/diminuir-volume.png)
+}
+
+.spotify{
+    
 }
