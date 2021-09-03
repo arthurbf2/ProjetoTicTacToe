@@ -1,16 +1,21 @@
 body{
-    background: lightgray;
+    background: #EBECED;
 }
 
 header{
-    background: gray;
+    background: #294c74;
     padding: 20px 0;
+    border-style: solid;
+    border: black;
 }
 
 .titulo-principal{
+    color: #FFFFF9;
     text-align: center;
+    font-family: 'Nothing You Could Do', cursive;
     font-size: 5em;
-    margin: 1em 0;
+    margin: 0.7em 0;
+
 }
 
 main{
@@ -29,14 +34,17 @@ main{
 }
 
 .botao{
-    padding: 2.3em 65px;
-    background-color: orange;
+    padding: 1em 65px;
+    background-color: #294c74;
     border: none;
     border-radius: 10px;
     font-size: medium;
     width: 50%;
     margin: 1em;
     transition: 0.25s;
+    color: #FFFFF9;
+    font-family: 'Darker Grotesque', sans-serif;
+    font-size: 30px;
 }
 
 .botao:hover{ 
@@ -45,149 +53,194 @@ main{
 }
 
 #status{
+    color: #294c74;
     font-size: 20px;
     margin: 2em;
+    font-family: 'Darker Grotesque', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 table{
-    width: 330px;
-    height: 330px;
+    width: 450px;
+    height: 450px;
     margin: 0 auto;
     border-style: none;
 }
 
 table button{
-    width: 110px;
-    height: 110px;
-    background-color: #FFFFFF;
-    color: transparent;   
+    border-radius: 10px;
+    border-width: 3px;
+    font-size: 50px;
+    background-color: #294c74;
+    color: transparent; 
+    font-family: 'Darker Grotesque', sans-serif;
+    color:transparent;
 }
 
 table button:hover{
-    background-color: lightsteelblue;    
+    cursor: pointer;
+    border-style: solid;
+    border-width: 2px;
 }
 
 #b00{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-left: none;
     border-top: none;
 }
 
 #b00:disabled{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-left: none;
     border-top: none;
-    color: black;
+    color: #FFFFF9;
 }
 
 #b01{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-top: none;
 }
 
 #b01:disabled{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-top: none;
-    color: black;
+    color: #FFFFF9;
 }
 
 #b02{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-top: none;
     border-right: none;
 }
 
 #b02:disabled{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-top: none;
     border-right: none;
-    color: black;
+    color: #FFFFF9;
 }
 
 #b10{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-left: none;
 }
 
 #b10:disabled{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-left: none;
-    color: black;
+    color: #FFFFF9;
 }
 
 #b11{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
 }
 
 #b11:disabled{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
-    color: black;
+    border-color: white;
+    color: #FFFFF9;
 }
 
 #b12{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-right: none;
 }
 
 #b12:disabled{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-right: none;
-    color: black;
+    color: #FFFFF9;
 }
 
-#b20, #b20:disabled{
+#b20{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-bottom: none;
     border-left: none;
 }
 
 #b20:disabled{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-bottom: none;
     border-left: none;
-    color: black;
+    color: #FFFFF9;
 }
 
 #b21{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-bottom: none;
 }
 
 #b21:disabled{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-bottom: none;
-    color: black;
+    color: #FFFFF9;
 }
 
 #b22{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-bottom: none;
     border-right: none;
 }
 
 #b22:disabled{
+    width: 150px;
+    height: 150px;
     border-style: solid;
-    border-color: black;
+    border-color: white;
     border-bottom: none;
     border-right: none;
-    color: black;
+    color: #FFFFF9;
 }
 
 #botaoRestart{
@@ -197,10 +250,13 @@ table button:hover{
 #botaoRestart button{
     padding: 8px 15px;
     margin: 10px;
-    background-color: orange;
+    background-color: #294c74;
     border-style: none;
     border-radius: 10px;
     transition: 0.25s;
+    color: #FFFFF9;
+    font-family: 'Darker Grotesque', sans-serif;
+    font-size: 30px;
 }
 
 #botaoRestart button:hover{

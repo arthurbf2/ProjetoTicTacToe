@@ -21,19 +21,19 @@ fun jogar(vsJarvis: Boolean) {
         <html>
         <table>
                 <tr>
-                    <td><button class="bts" id="b00" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
-                    <td><button class="bts" id="b01" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
-                    <td><button class="bts" id="b02" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
+                    <td><button class="bts" id="b00" onclick="main.botaoPressionado(id, $vsJarvis)" value="0"><img src="imagens/fundo_botao.png"></button></td>
+                    <td><button class="bts" id="b01" onclick="main.botaoPressionado(id, $vsJarvis)" value="0"><img src="imagens/fundo_botao.png"></button></td>
+                    <td><button class="bts" id="b02" onclick="main.botaoPressionado(id, $vsJarvis)" value="0"><img src="imagens/fundo_botao.png"></button></td>
                 </tr>
                 <tr>
-                    <td><button class="bts" id="b10" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
-                    <td><button class="bts" id="b11" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
-                    <td><button class="bts" id="b12" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
+                    <td><button class="bts" id="b10" onclick="main.botaoPressionado(id, $vsJarvis)" value="0"><img src="imagens/fundo_botao.png"></button></td>
+                    <td><button class="bts" id="b11" onclick="main.botaoPressionado(id, $vsJarvis)" value="0"><img src="imagens/fundo_botao.png"></button></td>
+                    <td><button class="bts" id="b12" onclick="main.botaoPressionado(id, $vsJarvis)" value="0"><img src="imagens/fundo_botao.png"></button></td>
                 </tr>
                 <tr>
-                    <td><button class="bts" id="b20" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
-                    <td><button class="bts" id="b21" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
-                    <td><button class="bts" id="b22" onclick="main.botaoPressionado(id, $vsJarvis)" value="0">.</button></td>
+                    <td><button class="bts" id="b20" onclick="main.botaoPressionado(id, $vsJarvis)" value="0"><img src="imagens/fundo_botao.png"></button></td>
+                    <td><button class="bts" id="b21" onclick="main.botaoPressionado(id, $vsJarvis)" value="0"><img src="imagens/fundo_botao.png"></button></td>
+                    <td><button class="bts" id="b22" onclick="main.botaoPressionado(id, $vsJarvis)" value="0"><img src="imagens/fundo_botao.png"></button></td>
                 </tr>
             </table>
         </html> 
@@ -280,13 +280,13 @@ fun jarvisBoardAnalysis(id: String):Int{
     val teste = positionIsVital(linha, col)
     println("Posição $linha $col é vital? $teste")
     if(positionIsVital(linha, col))
-        score += 4
+        score += 5
     if(linha == 1 && col == 1){
-        score += 2
+        score += 3
         if(positionHasEnemyAtDiagonal(linha, col))
             score -=2
     } else if(linha == col || (linha == 0 && col == 2) || (linha == 2 && col == 0)){
-        score += 1
+        score += 2
         if(positionHasEnemyAtDiagonal(linha, col)) 
             score -=2
     } else{
@@ -306,7 +306,7 @@ fun positionIsVital(linha: Int, col: Int): Boolean{  // se alguém ganhar ao esc
     val r1 = contabilizaLinha(linha, 0, 0)
     val r2 = contabilizaColuna(0, col, 0)
     val r3 = contabilizaDiagonal(linha, col)
-    if(r1 == 2 || r2 == -2){  
+    if(r1 == 2 || r1 == -2){  
         return true
     }
     if(r2 == 2 || r2 == -2)
