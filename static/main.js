@@ -83,6 +83,7 @@ if (typeof kotlin === 'undefined') {
     var tabuleiro = document.getElementById('tabuleiro');
     var status = document.getElementById('status');
     var restart = document.getElementById('botaoRestart');
+    var listSongs = document.getElementById('listSongs');
     if (options != null) {
       options.innerHTML = '\n        <button class="botao" onclick="main.jogar(false); document.getElementById(\'player\').play()">Jogar contra um amigo<\/button>\n        <button class="botao" onclick="main.jogar(true); document.getElementById(\'player\').play()">Jogar contra Jarvis<\/button>\n        <button class="botao" onclick="main.soundTrack()">Trilha sonora<\/button>\n        ';
     }if (tabuleiro != null)
@@ -91,6 +92,8 @@ if (typeof kotlin === 'undefined') {
       status.innerHTML = ' ';
     if (restart != null)
       restart.innerHTML = ' ';
+    if (listSongs != null)
+      listSongs.innerHTML = ' ';
   }
   function resetaBoard(linha, col, vsJarvis) {
     if (col <= 2 && linha <= 2) {
@@ -299,17 +302,21 @@ if (typeof kotlin === 'undefined') {
     var options = document.getElementById('botoes');
     if (options != null) {
       options.innerHTML = '\n        ';
-    }var songControl = document.getElementById('song-control');
-    var restart = document.getElementById('botaoRestart');
-    if (songControl != null) {
-      songControl.innerHTML = '\n\n            <h2>Escolha uma m\xFAsica<\/h2>\n            <ul>\n                <li><button value="billyGoat" onclick="main.songChosen(value)">BillyGoat<\/button><\/li>\n                <li><button value="player" onclick="main.songChosen(value)">My Favorite Things<\/button><\/li>\n            <\/ul>\n        ';
-    }if (restart != null) {
-      restart.innerHTML = '\n        <button onclick="main.resetaBoardGOTOMENU(0, 0)">Voltar ao menu<\/button>\n        ';
+    }var listSongs = document.getElementById('listSongs');
+    var songControl = document.getElementById('song-control');
+    if (listSongs != null) {
+      listSongs.innerHTML = '\n            <h2>Escolha uma m\xFAsica<\/h2>\n            <ul>\n                <li><button value="billyGoat" onclick="main.songChosen(value)">BillyGoat<\/button><\/li>\n                <li><button value="player" onclick="main.songChosen(value)">My Favorite Things<\/button><\/li>\n            <\/ul>\n        ';
+    }if (songControl != null) {
+      songControl.innerHTML = '\n        ';
     }}
   function songChosen(song) {
     var songControl = document.getElementById('song-control');
-    if (songControl != null && song != null) {
-      songControl.innerHTML = '\n' + '        <button onclick=' + '"' + 'document.getElementById(' + song + ').play()' + '"' + '><\/button>' + '\n' + '        <button onclick=' + '"' + 'document.getElementById(' + song + ').pause()' + '"' + '><\/button>' + '\n' + '        <button onclick=' + '"' + 'document.getElementById(' + song + ').volume+=0.1' + '"' + '><\/button>' + '\n' + '        <button onclick=' + '"' + 'document.getElementById(' + song + ').volume-=0.1' + '"' + '><\/button>' + '\n' + '        ';
+    var restart = document.getElementById('botaoRestart');
+    println(song);
+    if (songControl != null) {
+      songControl.innerHTML = '\n' + '        <button onclick=' + '"' + "document.getElementById('" + song + "').play()" + '"' + '><\/button>' + '\n' + '        <button onclick=' + '"' + "document.getElementById('" + song + "').pause()" + '"' + '><\/button>' + '\n' + '        <button onclick=' + '"' + "document.getElementById('" + song + "').volume+=0.1" + '"' + '><\/button>' + '\n' + '        <button onclick=' + '"' + "document.getElementById('" + song + "').volume-=0.1" + '"' + '><\/button>' + '\n' + '        ';
+    }if (restart != null) {
+      restart.innerHTML = '\n    <button onclick="main.resetaBoardGOTOMENU(0, 0)">Voltar ao menu<\/button>\n    ';
     }}
   Object.defineProperty(_, 'board', {
     get: function () {

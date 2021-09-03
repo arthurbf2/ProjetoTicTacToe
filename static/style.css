@@ -52,13 +52,34 @@ main{
     transform: scale(1.1);
 }
 
-#status{
+#status, #listSongs h2{
     color: #294c74;
     font-size: 20px;
     margin: 2em;
     font-family: 'Darker Grotesque', sans-serif;
     font-size: 30px;
     font-weight: bold;
+}
+
+#listSongs{
+    width: 940px;
+}
+
+#listSongs button{
+    width: 50%;
+    margin: 10px;
+    background-color: #294c74;
+    font-family: 'Darker Grotesque', sans-serif;
+    font-size: 30px;
+    border-style: none;
+    border-radius: 10px;
+    transition: 0.25s;
+    color: #FFFFF9;
+}
+
+#listSongs button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
 }
 
 .table-jogo{

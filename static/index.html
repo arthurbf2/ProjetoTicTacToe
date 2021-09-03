@@ -9,6 +9,8 @@
         <script src="main.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300&family=Gudea&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
+        <title>Jogo da Velha</title>
+        <link rel="shortcut icon" href="imagens/favicon-32x32.png" />
     </head>
 
     <body>
@@ -29,6 +31,9 @@
 
             </div>
 
+            <div id="listSongs">
+
+            </div>
 
             <div id="tabuleiro">
 
@@ -38,14 +43,13 @@
                 
             </div>
 
-
             <div id="song-control" class="song-control">
                 
                 <button onclick="document.getElementById('player').play()"></button>
                 <button onclick="document.getElementById('player').pause()"></button>
                 <button onclick="document.getElementById('player').volume+=0.1"></button>
                 <button onclick="document.getElementById('player').volume-=0.1"></button>
-              </div>
+            </div>
 
             <div class="songs">
                 <audio preload="none" id="player" loop="loop" >

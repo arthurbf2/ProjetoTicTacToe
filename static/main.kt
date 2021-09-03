@@ -122,6 +122,7 @@ fun reset(){
     val tabuleiro = document.getElementById("tabuleiro")
     val status = document.getElementById("status")
     val restart = document.getElementById("botaoRestart")
+    val listSongs = document.getElementById("listSongs")
     if(options != null){
         options.innerHTML = """
         <button class="botao" onclick="main.jogar(false); document.getElementById('player').play()">Jogar contra um amigo</button>
@@ -135,6 +136,8 @@ fun reset(){
         status.innerHTML = """ """
     if(restart != null)
         restart.innerHTML = """ """ 
+    if(listSongs != null)
+        listSongs.innerHTML = """ """
 
 }
 
@@ -407,11 +410,10 @@ fun soundTrack(){
         options.innerHTML = """
         """
     }
+    val listSongs = document.getElementById("listSongs")
     val songControl = document.getElementById("song-control")
-    val restart = document.getElementById("botaoRestart")
-    if(songControl != null){
-        songControl.innerHTML = """
-
+    if(listSongs != null){
+        listSongs.innerHTML = """
             <h2>Escolha uma música</h2>
             <ul>
                 <li><button value="billyGoat" onclick="main.songChosen(value)">BillyGoat</button></li>
@@ -419,9 +421,8 @@ fun soundTrack(){
             </ul>
         """
     }
-    if(restart != null){
-        restart.innerHTML="""
-        <button onclick="main.resetaBoardGOTOMENU(0, 0)">Voltar ao menu</button>
+    if(songControl != null){
+        songControl.innerHTML = """
         """
     }
 
@@ -430,12 +431,20 @@ fun soundTrack(){
 @JsName("songChosen")
 fun songChosen(song:String){
     val songControl = document.getElementById("song-control")
-    if(songControl != null && song != null){
+    val restart = document.getElementById("botaoRestart")
+    val botoes = document.getElementById("botoes")
+    println(song)
+    if(songControl != null){
         songControl.innerHTML = """
-        <button onclick="document.getElementById($song).play()"></button>
-        <button onclick="document.getElementById($song).pause()"></button>
-        <button onclick="document.getElementById($song).volume+=0.1"></button>
-        <button onclick="document.getElementById($song).volume-=0.1"></button>
+        <button onclick="document.getElementById('$song').play()"></button>
+        <button onclick="document.getElementById('$song').pause()"></button>
+        <button onclick="document.getElementById('$song').volume+=0.1"></button>
+        <button onclick="document.getElementById('$song').volume-=0.1"></button>
         """
+    }
+    if(restart != null){
+    restart.innerHTML="""
+    <button onclick="main.resetaBoardGOTOMENU(0, 0)">Voltar ao menu</button>
+    """
     }
 }
