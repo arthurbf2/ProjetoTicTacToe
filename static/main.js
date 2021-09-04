@@ -5,7 +5,6 @@ if (typeof kotlin === 'undefined') {
   var throwCCE = Kotlin.throwCCE;
   var contains = Kotlin.kotlin.text.contains_li3zpu$;
   var equals = Kotlin.equals;
-  var println = Kotlin.kotlin.io.println_s8jyv4$;
   var toString = Kotlin.toString;
   var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_287e2$;
   var board;
@@ -171,12 +170,9 @@ if (typeof kotlin === 'undefined') {
       while (tmp$.hasNext()) {
         var i = tmp$.next();
         var actualScore = jarvisBoardAnalysis(i);
-        println(i + ' = ' + actualScore);
-        println('antes: ' + bestMoveID);
         if (actualScore > score) {
           score = actualScore;
           bestMoveID = i;
-          println('depois: ' + bestMoveID);
         }}
       bestMoveID = 'b' + bestMoveID;
       var move = Kotlin.isType(tmp$_0 = document.getElementsByClassName('bts').item(auxiliarCasting(bestMoveID)), HTMLButtonElement) ? tmp$_0 : throwCCE();
@@ -205,8 +201,6 @@ if (typeof kotlin === 'undefined') {
     var linha = (id.charCodeAt(0) | 0) - 48 | 0;
     var col = (id.charCodeAt(1) | 0) - 48 | 0;
     var score = 0;
-    var teste = positionIsVital(linha, col);
-    println('Posi\xE7\xE3o ' + linha + ' ' + col + ' \xE9 vital? ' + teste);
     if (positionIsVital(linha, col))
       score = score + 12 | 0;
     if (linha === 1 && col === 1) {
@@ -221,11 +215,7 @@ if (typeof kotlin === 'undefined') {
       score = score - 2 | 0;
     }if (positionHasEnemyAtColumn(0, col)) {
       score = score - 2 | 0;
-    }if (linha === 1 && col === 1)
-      println('[' + linha + '][' + col + '] = ' + score);
-    else if (linha === 0 && col === 2)
-      println('[' + linha + '][' + col + '] = ' + score);
-    return score;
+    }return score;
   }
   function positionIsVital(linha, col) {
     var r1 = contabilizaLinha(linha, 0, 0);
@@ -310,17 +300,18 @@ if (typeof kotlin === 'undefined') {
     }var listSongs = document.getElementById('listSongs');
     var songControl = document.getElementById('song-control');
     if (listSongs != null) {
-      listSongs.innerHTML = '\n            <h2>Escolha uma m\xFAsica<\/h2>\n            <ul>\n                <li><button value="billyGoat" onclick="main.songChosen(value)">BillyGoat<\/button><\/li>\n                <li><button value="player" onclick="main.songChosen(value)">My Favorite Things<\/button><\/li>\n            <\/ul>\n        ';
+      listSongs.innerHTML = "\n            <h2>Escolha uma m\xFAsica<\/h2>\n            <ul>\n                <li><button value=\"beneathTheMask\" onclick=\"main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()\">Beneath The Mask - Lyn<\/button><\/li>\n                <li><button value=\"cantStop\" onclick=\"main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()\">Can't Stop - RHCP<\/button><\/li>\n                <li><button value=\"caravan\" onclick=\"main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()\">Caravan - Duke Ellington<\/button><\/li>\n                <li><button value=\"dayBreak\" onclick=\"main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()\">Day Break - Michael Haggins<\/button><\/li>\n                <li><button value=\"fernando\" onclick=\"main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()\">Fernando - ABBA<\/button><\/li>\n                <li><button value=\"ironMan\" onclick=\"main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()\">Iron Man - Black Sabbath<\/button><\/li>\n                <li><button value=\"kowaretaSekaiNoUta\" onclick=\"main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()\">Kowareta Sekai - Keiichi Okabe<\/button><\/li>\n                <li><button value=\"mammaMia\" onclick=\"main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()\">Mamma Mia - ABBA<\/button><\/li>\n                <li><button value=\"misirlou\" onclick=\"main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()\">Misirlou - Dick Dale<\/button><\/li>\n                <li><button value=\"moonageDaydream\" onclick=\"main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()\">Moonage Daydream - David Bowie<\/button><\/li>\n                <li><button value=\"myFavoriteThings\" onclick=\"main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()\">My Favorite Things - John Coltrane<\/button><\/li>\n                <li><button value=\"noGood\" onclick=\"main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()\">No Good - Ben Matthews<\/button><\/li>\n                <li><button value=\"samurai\" onclick=\"main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()\">Samurai - Djavan<\/button><\/li>\n                <li><button value=\"spaceOddity\" onclick=\"main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()\">Space Oddity - David Bowie<\/button><\/li>\n                <li><button value=\"startedAJoke\" onclick=\"main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()\">I Started A Joke - Bee Gees<\/button><\/li>\n            <\/ul>\n        ";
     }if (songControl != null) {
       songControl.innerHTML = '\n        ';
     }}
   function songChosen(song) {
     var songControl = document.getElementById('song-control');
     var restart = document.getElementById('botaoRestart');
-    var botoes = document.getElementById('botoes');
-    println(song);
-    if (songControl != null) {
-      songControl.innerHTML = '\n' + '        <button onclick=' + '"' + "document.getElementById('" + song + "').play()" + '"' + '><\/button>' + '\n' + '        <button onclick=' + '"' + "document.getElementById('" + song + "').pause()" + '"' + '><\/button>' + '\n' + '        <button onclick=' + '"' + "document.getElementById('" + song + "').volume+=0.1" + '"' + '><\/button>' + '\n' + '        <button onclick=' + '"' + "document.getElementById('" + song + "').volume-=0.1" + '"' + '><\/button>' + '\n' + '        ';
+    var musica = document.getElementById('musica');
+    if (musica != null) {
+      musica.innerHTML = '\n' + '            <audio preload=' + '"' + 'none' + '"' + ' id=' + '"' + 'player' + '"' + ' loop=' + '"' + 'loop' + '"' + ' >' + '\n' + '                <source src=' + '"' + 'midia/' + song + '.mp3' + '"' + ' type=' + '"' + 'audio/mp3' + '"' + '/>' + '\n' + '            <\/audio>' + '\n' + '        ';
+    }if (songControl != null) {
+      songControl.innerHTML = '\n        <button onclick="document.getElementById(\'player\').play()"><\/button>\n        <button onclick="document.getElementById(\'player\').pause()"><\/button>\n        <button onclick="document.getElementById(\'player\').volume+=0.1"><\/button>\n        <button onclick="document.getElementById(\'player\').volume-=0.1"><\/button>\n        ';
     }if (restart != null) {
       restart.innerHTML = '\n    <button onclick="main.resetaBoardGOTOMENU(0, 0)">Voltar ao menu<\/button>\n    ';
     }}

@@ -1,5 +1,5 @@
 body{
-    background: #EBECED;
+    background: #edebed;
 }
 
 header{
@@ -30,7 +30,7 @@ main{
 }
 
 #botoes{
-    margin: 100px 5%;
+    margin: 75px 5%;
 }
 
 .botao{
@@ -286,7 +286,7 @@ main{
 }
 
 .song-control{
-    margin: 2em;
+    margin: 1.7em;
 }
 
 .song-control button{
@@ -315,8 +315,4 @@ main{
 
 .song-control button:nth-child(4){
     background: url(imagens/diminuir-volume.png)
-}
-
-.spotify{
-    
 }

@@ -58,7 +58,6 @@ fun botaoPressionado(id:String, vsJarvis: Boolean){
             if(status != null)
                 status.innerHTML = "Vez de jogador 2(O)"
             if(vsJarvis && !fimDeJogo()){
-                delay(3000)
                 jarvis()
             }
         } else{
@@ -286,8 +285,6 @@ fun jarvisBoardAnalysis(id: String):Int{
     val linha:Int = id[0].code - 48
     val col:Int = id[1].code - 48
     var score:Int = 0
-    val teste = positionIsVital(linha, col)
-    println("Posição $linha $col é vital? $teste")
     if(positionIsVital(linha, col))
         score += 12
     if(linha == 1 && col == 1){
@@ -305,11 +302,7 @@ fun jarvisBoardAnalysis(id: String):Int{
     if(positionHasEnemyAtColumn(0, col)){
         score -= 2
     }
-    
-    if(linha == 1 && col == 1)
-        println("[$linha][$col] = $score")
-    else if(linha == 0 && col == 2)
-        println("[$linha][$col] = $score")
+
     return score
 }
 
@@ -423,8 +416,21 @@ fun soundTrack(){
         listSongs.innerHTML = """
             <h2>Escolha uma música</h2>
             <ul>
-                <li><button value="billyGoat" onclick="main.songChosen(value)">BillyGoat</button></li>
-                <li><button value="player" onclick="main.songChosen(value)">My Favorite Things</button></li>
+                <li><button value="beneathTheMask" onclick="main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()">Beneath The Mask - Lyn</button></li>
+                <li><button value="cantStop" onclick="main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()">Can't Stop - RHCP</button></li>
+                <li><button value="caravan" onclick="main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()">Caravan - Duke Ellington</button></li>
+                <li><button value="dayBreak" onclick="main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()">Day Break - Michael Haggins</button></li>
+                <li><button value="fernando" onclick="main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()">Fernando - ABBA</button></li>
+                <li><button value="ironMan" onclick="main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()">Iron Man - Black Sabbath</button></li>
+                <li><button value="kowaretaSekaiNoUta" onclick="main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()">Kowareta Sekai - Keiichi Okabe</button></li>
+                <li><button value="mammaMia" onclick="main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()">Mamma Mia - ABBA</button></li>
+                <li><button value="misirlou" onclick="main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()">Misirlou - Dick Dale</button></li>
+                <li><button value="moonageDaydream" onclick="main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()">Moonage Daydream - David Bowie</button></li>
+                <li><button value="myFavoriteThings" onclick="main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()">My Favorite Things - John Coltrane</button></li>
+                <li><button value="noGood" onclick="main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()">No Good - Ben Matthews</button></li>
+                <li><button value="samurai" onclick="main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()">Samurai - Djavan</button></li>
+                <li><button value="spaceOddity" onclick="main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()">Space Oddity - David Bowie</button></li>
+                <li><button value="startedAJoke" onclick="main.songChosen(value); document.getElementById('player').pause(); document.getElementById('player').play()">I Started A Joke - Bee Gees</button></li>
             </ul>
         """
     }
@@ -439,14 +445,20 @@ fun soundTrack(){
 fun songChosen(song:String){
     val songControl = document.getElementById("song-control")
     val restart = document.getElementById("botaoRestart")
-    val botoes = document.getElementById("botoes")
-    println(song)
+    val musica = document.getElementById("musica")
+    if(musica != null){
+        musica.innerHTML = """
+            <audio preload="none" id="player" loop="loop" >
+                <source src="midia/$song.mp3" type="audio/mp3"/>
+            </audio>
+        """
+    }
     if(songControl != null){
         songControl.innerHTML = """
-        <button onclick="document.getElementById('$song').play()"></button>
-        <button onclick="document.getElementById('$song').pause()"></button>
-        <button onclick="document.getElementById('$song').volume+=0.1"></button>
-        <button onclick="document.getElementById('$song').volume-=0.1"></button>
+        <button onclick="document.getElementById('player').play()"></button>
+        <button onclick="document.getElementById('player').pause()"></button>
+        <button onclick="document.getElementById('player').volume+=0.1"></button>
+        <button onclick="document.getElementById('player').volume-=0.1"></button>
         """
     }
     if(restart != null){
