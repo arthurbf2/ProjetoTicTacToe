@@ -5,8 +5,8 @@ if (typeof kotlin === 'undefined') {
   var throwCCE = Kotlin.throwCCE;
   var contains = Kotlin.kotlin.text.contains_li3zpu$;
   var equals = Kotlin.equals;
-  var toString = Kotlin.toString;
   var println = Kotlin.kotlin.io.println_s8jyv4$;
+  var toString = Kotlin.toString;
   var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_287e2$;
   var board;
   function jogar(vsJarvis) {
@@ -162,16 +162,21 @@ if (typeof kotlin === 'undefined') {
   function jarvis() {
     var tmp$, tmp$_0;
     var possiblePositions = ArrayList_init();
-    var score = 0;
     possiblePositions = verificaEspacos(0, 0, possiblePositions);
     if (possiblePositions.size > 0) {
-      var bestMoveID = possiblePositions.get_za3lpa$(0);
+      var firstPosition = possiblePositions.removeAt_za3lpa$(0);
+      var bestMoveID = firstPosition;
+      var score = jarvisBoardAnalysis(firstPosition);
       tmp$ = possiblePositions.iterator();
       while (tmp$.hasNext()) {
         var i = tmp$.next();
-        if (jarvisBoardAnalysis(i) > score) {
-          score = jarvisBoardAnalysis(i);
+        var actualScore = jarvisBoardAnalysis(i);
+        println(i + ' = ' + actualScore);
+        println('antes: ' + bestMoveID);
+        if (actualScore > score) {
+          score = actualScore;
           bestMoveID = i;
+          println('depois: ' + bestMoveID);
         }}
       bestMoveID = 'b' + bestMoveID;
       var move = Kotlin.isType(tmp$_0 = document.getElementsByClassName('bts').item(auxiliarCasting(bestMoveID)), HTMLButtonElement) ? tmp$_0 : throwCCE();
@@ -203,20 +208,20 @@ if (typeof kotlin === 'undefined') {
     var teste = positionIsVital(linha, col);
     println('Posi\xE7\xE3o ' + linha + ' ' + col + ' \xE9 vital? ' + teste);
     if (positionIsVital(linha, col))
-      score = score + 5 | 0;
+      score = score + 12 | 0;
     if (linha === 1 && col === 1) {
-      score = score + 3 | 0;
+      score = score + 6 | 0;
       if (positionHasEnemyAtDiagonal(linha, col))
         score = score - 2 | 0;
     } else if (linha === col || (linha === 0 && col === 2) || (linha === 2 && col === 0)) {
-      score = score + 2 | 0;
+      score = score + 1 | 0;
       if (positionHasEnemyAtDiagonal(linha, col))
         score = score - 2 | 0;
-    } else {
-      if (positionHasEnemyAtLine(linha, 0) || positionHasEnemyAtColumn(0, col)) {
-        score = score - 2 | 0;
-      }}
-    if (linha === 1 && col === 1)
+    }if (positionHasEnemyAtLine(linha, 0)) {
+      score = score - 2 | 0;
+    }if (positionHasEnemyAtColumn(0, col)) {
+      score = score - 2 | 0;
+    }if (linha === 1 && col === 1)
       println('[' + linha + '][' + col + '] = ' + score);
     else if (linha === 0 && col === 2)
       println('[' + linha + '][' + col + '] = ' + score);
@@ -312,6 +317,7 @@ if (typeof kotlin === 'undefined') {
   function songChosen(song) {
     var songControl = document.getElementById('song-control');
     var restart = document.getElementById('botaoRestart');
+    var botoes = document.getElementById('botoes');
     println(song);
     if (songControl != null) {
       songControl.innerHTML = '\n' + '        <button onclick=' + '"' + "document.getElementById('" + song + "').play()" + '"' + '><\/button>' + '\n' + '        <button onclick=' + '"' + "document.getElementById('" + song + "').pause()" + '"' + '><\/button>' + '\n' + '        <button onclick=' + '"' + "document.getElementById('" + song + "').volume+=0.1" + '"' + '><\/button>' + '\n' + '        <button onclick=' + '"' + "document.getElementById('" + song + "').volume-=0.1" + '"' + '><\/button>' + '\n' + '        ';

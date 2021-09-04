@@ -58,6 +58,7 @@ fun botaoPressionado(id:String, vsJarvis: Boolean){
             if(status != null)
                 status.innerHTML = "Vez de jogador 2(O)"
             if(vsJarvis && !fimDeJogo()){
+                delay(3000)
                 jarvis()
             }
         } else{
@@ -233,15 +234,18 @@ fun desabilitaBts(i: Int){
 @JsName("jarvis")
 fun jarvis(){
     var possiblePositions: MutableList<String> = mutableListOf()
-    var score:Int = 0
+    
     possiblePositions = verificaEspacos(0, 0, possiblePositions)
     if(possiblePositions.size > 0){
-        var bestMoveID = possiblePositions[0]
+        val firstPosition:String = possiblePositions.removeAt(0)
+        var bestMoveID = firstPosition
+        var score:Int = jarvisBoardAnalysis(firstPosition)
         for(i in possiblePositions){
-            if (jarvisBoardAnalysis(i) > score){
-                score = jarvisBoardAnalysis(i)
-                bestMoveID = i
-            }
+                var actualScore: Int = jarvisBoardAnalysis(i)
+                if (actualScore > score){
+                    score = actualScore
+                    bestMoveID = i
+                }
         }
         bestMoveID = "b" + bestMoveID
         val move = document.getElementsByClassName("bts").item(auxiliarCasting(bestMoveID)) as HTMLButtonElement
@@ -285,20 +289,23 @@ fun jarvisBoardAnalysis(id: String):Int{
     val teste = positionIsVital(linha, col)
     println("Posição $linha $col é vital? $teste")
     if(positionIsVital(linha, col))
-        score += 5
+        score += 12
     if(linha == 1 && col == 1){
-        score += 3
+        score += 6
         if(positionHasEnemyAtDiagonal(linha, col))
             score -=2
     } else if(linha == col || (linha == 0 && col == 2) || (linha == 2 && col == 0)){
-        score += 2
+        score += 1
         if(positionHasEnemyAtDiagonal(linha, col)) 
             score -=2
-    } else{
-        if(positionHasEnemyAtLine(linha, 0) || positionHasEnemyAtColumn(0, col)){
-            score -= 2
-        } 
     }
+    if(positionHasEnemyAtLine(linha, 0)){
+        score -= 2
+    }
+    if(positionHasEnemyAtColumn(0, col)){
+        score -= 2
+    }
+    
     if(linha == 1 && col == 1)
         println("[$linha][$col] = $score")
     else if(linha == 0 && col == 2)
