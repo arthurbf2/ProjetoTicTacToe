@@ -7,7 +7,7 @@ val board = arrayOf(arrayOf(0,0,0), arrayOf(0,0,0), arrayOf(0,0,0))
 
 @JsName("jogar")
 fun jogar(vsJarvis: Boolean) {
-    testeglobal = 1
+    vezJogada = 1
     val options = document.getElementById("botoes")
     if(options != null){
         options.innerHTML = ""
@@ -41,27 +41,28 @@ fun jogar(vsJarvis: Boolean) {
     }
 }
 
-var testeglobal: Int = 1 
+var vezJogada: Int = 1 
 
 @JsName("botaoPressionado")
-fun botaoPressionado(id:String, vsJarvis: Boolean){
+fun botaoPressionado(id:String, vsJarvis: Boolean){   // Recebe a ID do botão clicado e uma boolean
+// correspondente ao modo de jogo escolhido.
     val status = document.getElementById("status")
     val botao = document.getElementById(id) as HTMLButtonElement
     val linha = id[1].code- 48
     val coluna = id[2].code - 48
     if (botao.disabled == false) 
-        if(testeglobal == 1){
+        if(vezJogada == 1){
             botao.innerHTML = "X"
             board[linha][coluna] = 1
-            testeglobal = 0
+            vezJogada = 0
             botao.disabled = true // desabilitar o botão
             if(status != null)
                 status.innerHTML = "Vez de jogador 2(O)"
-            if(vsJarvis && !fimDeJogo()){
+            if(vsJarvis && !fimDeJogo()){   
                 jarvis()
             }
         } else{
-            testeglobal = 1
+            vezJogada = 1
             botao.innerHTML = "O"
             board[linha][coluna] = -1
             botao.disabled = true // desabilitar o botão 
@@ -83,7 +84,7 @@ fun botaoPressionado(id:String, vsJarvis: Boolean){
     }
 }
 
-@JsName("vencedor")
+@JsName("vencedor")   // Altera o HTML ao final da partida
 fun vencedor(linha: Int, coluna: Int, vsJarvis: Boolean){
     val status = document.getElementById("status")
     if(status != null) {
@@ -171,7 +172,11 @@ fun verifica(): Boolean{
 }
 
 @JsName("verificaLinhas")
-fun verificaLinhas(linha: Int, col: Int, x: Int): Boolean {
+fun verificaLinhas(linha: Int, col: Int, x: Int): Boolean { 
+    /* As posições do tabuleiro recebem o valor de 0, caso vazias; 1, caso contenha um X;
+     e -1 caso contenham O. Portanto, uma linha/coluna que tenha valor de -3 ou 3 é uma linha/coluna
+     completa.
+    */
     if(x == 3 || x == -3)
         return true
     if(col <= 2 && linha <=2){
@@ -208,7 +213,7 @@ fun verificaDiagonais(): Boolean {
     return false
 }
 
-@JsName("verificaVelha")
+@JsName("verificaVelha")   // verifica o empate
 fun verificaVelha(i: Int): Boolean {    
     if(i < 9){
         val doc = document.getElementsByClassName("bts").item(i) 
@@ -220,7 +225,7 @@ fun verificaVelha(i: Int): Boolean {
     return true
 }
 
-@JsName("desabilitaBts")
+@JsName("desabilitaBts")   // Desabilita botões caso ainda estejam vazios ao final da partida
 fun desabilitaBts(i: Int){
     if(i < 9){
         val doc = document.getElementsByClassName("bts").item(i) as HTMLButtonElement
@@ -230,7 +235,7 @@ fun desabilitaBts(i: Int){
     }
 }
 
-@JsName("jarvis")
+@JsName("jarvis")  // IA batizada de Jarvis utilizada no modo single-player.
 fun jarvis(){
     var possiblePositions: MutableList<String> = mutableListOf()
     
@@ -252,8 +257,12 @@ fun jarvis(){
     }
 }
 
-@JsName("auxiliarCasting")
+@JsName("auxiliarCasting")  
 fun auxiliarCasting(s: String): Int{
+    /*
+    Por algum motivo alguns castings não funcionavam direito na conversão para JavaScript. 
+    Essa foi a maneira de contornar o problema.
+    */
     for(i in 0..9){
         val doc = document.getElementsByClassName("bts").item(i)
         if(doc != null)
@@ -264,7 +273,7 @@ fun auxiliarCasting(s: String): Int{
 }
 
 
-@JsName("verificaEspacos")
+@JsName("verificaEspacos")   // Retorna uma lista de posições clicáveis para serem analisadas pela IA.
 fun verificaEspacos(linha: Int, col: Int, list: MutableList<String>): MutableList<String> {
     if(col <= 2 && linha <=2){
         if(board[linha][col] == 0){
@@ -277,11 +286,9 @@ fun verificaEspacos(linha: Int, col: Int, list: MutableList<String>): MutableLis
     } else
         return list
 }
-
-@JsName("jarvisBoardAnalysis")
+ 
+@JsName("jarvisBoardAnalysis")   // Analisa as posições vazias para escolher a próxima jogada de Jarvis.
 fun jarvisBoardAnalysis(id: String):Int{
-    //Mais 04 pontos se a posição impedir a vitória do adversário
-    //Mais 04 pontos se a posição levar a uma vitória
     val linha:Int = id[0].code - 48
     val col:Int = id[1].code - 48
     var score:Int = 0
@@ -306,8 +313,8 @@ fun jarvisBoardAnalysis(id: String):Int{
     return score
 }
 
-@JsName("positionsIsVital")
-fun positionIsVital(linha: Int, col: Int): Boolean{  // se alguém ganhar ao escolher a posição, ela é vital
+@JsName("positionsIsVital")  // se alguém ganhar ao escolher a posição, ela é vital
+fun positionIsVital(linha: Int, col: Int): Boolean{  
     val r1 = contabilizaLinha(linha, 0, 0)
     val r2 = contabilizaColuna(0, col, 0)
     val r3 = contabilizaDiagonal(linha, col)
