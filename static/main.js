@@ -73,9 +73,10 @@ if (typeof kotlin === 'undefined') {
     if (col <= 2 && linha <= 2) {
       board[linha][col] = 0;
       resetaBoardGOTOMENU(linha + 1 | 0, col);
-    } else if (col <= 2) {
+    } else if (col <= 2)
       resetaBoardGOTOMENU(0, col + 1 | 0);
-    }reset();
+    else
+      reset();
   }
   function reset() {
     var options = document.getElementById('botoes');
@@ -98,9 +99,10 @@ if (typeof kotlin === 'undefined') {
     if (col <= 2 && linha <= 2) {
       board[linha][col] = 0;
       resetaBoard(linha + 1 | 0, col, vsJarvis);
-    } else if (col <= 2) {
+    } else if (col <= 2)
       resetaBoard(0, col + 1 | 0, vsJarvis);
-    }jogar(vsJarvis);
+    else
+      jogar(vsJarvis);
   }
   function fimDeJogo() {
     return verifica() || verificaVelha(0);
@@ -201,31 +203,44 @@ if (typeof kotlin === 'undefined') {
     var linha = (id.charCodeAt(0) | 0) - 48 | 0;
     var col = (id.charCodeAt(1) | 0) - 48 | 0;
     var score = 0;
-    if (positionIsVital(linha, col))
-      score = score + 12 | 0;
+    if (positionIsVitalToWin(linha, col))
+      score = score + 15 | 0;
+    if (positionsIsVitalToStopPlayer(linha, col))
+      score = score + 10 | 0;
     if (linha === 1 && col === 1) {
       score = score + 6 | 0;
       if (positionHasEnemyAtDiagonal(linha, col))
-        score = score - 2 | 0;
+        score = score - 1 | 0;
     } else if (linha === col || (linha === 0 && col === 2) || (linha === 2 && col === 0)) {
-      score = score + 1 | 0;
       if (positionHasEnemyAtDiagonal(linha, col))
-        score = score - 2 | 0;
+        score = score - 1 | 0;
     }if (positionHasEnemyAtLine(linha, 0)) {
-      score = score - 2 | 0;
+      score = score - 1 | 0;
     }if (positionHasEnemyAtColumn(0, col)) {
-      score = score - 2 | 0;
+      score = score - 1 | 0;
     }return score;
   }
-  function positionIsVital(linha, col) {
+  function positionsIsVitalToStopPlayer(linha, col) {
     var r1 = contabilizaLinha(linha, 0, 0);
     var r2 = contabilizaColuna(0, col, 0);
     var r3 = contabilizaDiagonal(linha, col);
-    if (r1 === 2 || r1 === -2) {
+    if (r1 === 2) {
       return true;
-    }if (r2 === 2 || r2 === -2)
+    }if (r2 === 2)
       return true;
-    if (r3 === 2 || r3 === -2)
+    if (r3 === 2)
+      return true;
+    return false;
+  }
+  function positionIsVitalToWin(linha, col) {
+    var r1 = contabilizaLinha(linha, 0, 0);
+    var r2 = contabilizaColuna(0, col, 0);
+    var r3 = contabilizaDiagonal(linha, col);
+    if (r1 === -2) {
+      return true;
+    }if (r2 === -2)
+      return true;
+    if (r3 === -2)
       return true;
     return false;
   }
@@ -345,7 +360,8 @@ if (typeof kotlin === 'undefined') {
   _.auxiliarCasting = auxiliarCasting;
   _.verificaEspacos = verificaEspacos;
   _.jarvisBoardAnalysis = jarvisBoardAnalysis;
-  _.positionsIsVital = positionIsVital;
+  _.positionsIsVitalToStopPlayer = positionsIsVitalToStopPlayer;
+  _.positionsIsVitalToWin = positionIsVitalToWin;
   _.contabilizaDiagonal = contabilizaDiagonal;
   _.contabilizaLinha = contabilizaLinha;
   _.contabilizaColuna = contabilizaColuna;

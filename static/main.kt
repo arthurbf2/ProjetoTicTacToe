@@ -1,8 +1,6 @@
 import kotlinx.browser.*
 import org.w3c.dom.*
 
-
-
 val board = arrayOf(arrayOf(0,0,0), arrayOf(0,0,0), arrayOf(0,0,0))
 
 @JsName("jogar")
@@ -112,10 +110,10 @@ fun resetaBoardGOTOMENU(linha: Int, col: Int){
         resetaBoardGOTOMENU(linha + 1, col) 
     }
     else 
-    	if(col <= 2) {
+    	if(col <= 2) 
         	resetaBoardGOTOMENU(0, col + 1) 
-    } 
-    reset()
+        else
+            reset()
 }
 
 fun reset(){
@@ -149,10 +147,10 @@ fun resetaBoard(linha: Int, col: Int, vsJarvis:Boolean){
         resetaBoard(linha + 1, col, vsJarvis) 
     }
     else 
-    	if(col <= 2) {
+    	if(col <= 2) 
         	resetaBoard(0, col + 1, vsJarvis) 
-    } 
-    jogar(vsJarvis)
+        else
+             jogar(vsJarvis)
 }
 
 @JsName("fimDeJogo")
@@ -197,9 +195,8 @@ fun verificaColunas(linha: Int, col: Int, x: Int): Boolean {
         val r = board[linha][col]
         return verificaColunas(linha + 1, col, r + x) 
     }
-    else 
-    	if(col <= 2) {
-        	return verificaColunas(0, col + 1, 0) 
+    else if(col <= 2) {
+        return verificaColunas(0, col + 1, 0) 
     } 
     return false
 }
@@ -237,8 +234,7 @@ fun desabilitaBts(i: Int){
 
 @JsName("jarvis")  // IA batizada de Jarvis utilizada no modo single-player.
 fun jarvis(){
-    var possiblePositions: MutableList<String> = mutableListOf()
-    
+    var possiblePositions: MutableList<String> = mutableListOf()  
     possiblePositions = verificaEspacos(0, 0, possiblePositions)
     if(possiblePositions.size > 0){
         val firstPosition:String = possiblePositions.removeAt(0)
@@ -251,6 +247,7 @@ fun jarvis(){
                     bestMoveID = i
                 }
         }
+ 
         bestMoveID = "b" + bestMoveID
         val move = document.getElementsByClassName("bts").item(auxiliarCasting(bestMoveID)) as HTMLButtonElement
         move.click()
@@ -287,47 +284,63 @@ fun verificaEspacos(linha: Int, col: Int, list: MutableList<String>): MutableLis
         return list
 }
  
-@JsName("jarvisBoardAnalysis")   // Analisa as posições vazias para escolher a próxima jogada de Jarvis.
+@JsName("jarvisBoardAnalysis")   // Analisa as posições vazias para escolher a próxima jogada de Jarvis através de um sistema de score
 fun jarvisBoardAnalysis(id: String):Int{
     val linha:Int = id[0].code - 48
     val col:Int = id[1].code - 48
     var score:Int = 0
-    if(positionIsVital(linha, col))
-        score += 12
+    if(positionIsVitalToWin(linha, col))
+        score += 15
+    if(positionsIsVitalToStopPlayer(linha, col))
+        score += 10
     if(linha == 1 && col == 1){
         score += 6
         if(positionHasEnemyAtDiagonal(linha, col))
-            score -=2
+            score -=1
     } else if(linha == col || (linha == 0 && col == 2) || (linha == 2 && col == 0)){
-        score += 1
         if(positionHasEnemyAtDiagonal(linha, col)) 
-            score -=2
+            score -=1
     }
     if(positionHasEnemyAtLine(linha, 0)){
-        score -= 2
+        score -= 1
     }
     if(positionHasEnemyAtColumn(0, col)){
-        score -= 2
+        score -= 1
     }
 
     return score
 }
 
-@JsName("positionsIsVital")  // se alguém ganhar ao escolher a posição, ela é vital
-fun positionIsVital(linha: Int, col: Int): Boolean{  
+@JsName("positionsIsVitalToStopPlayer")  // se alguém ganhar ao escolher a posição, ela é vital
+fun positionsIsVitalToStopPlayer(linha: Int, col: Int): Boolean{  
     val r1 = contabilizaLinha(linha, 0, 0)
     val r2 = contabilizaColuna(0, col, 0)
     val r3 = contabilizaDiagonal(linha, col)
-    if(r1 == 2 || r1 == -2){  
+    if(r1 == 2){  
         return true
     }
-    if(r2 == 2 || r2 == -2)
+    if(r2 == 2 )
         return true
-    if(r3 == 2 || r3 == -2)
+    if(r3 == 2)
         return true
     return false
-    
 }
+
+@JsName("positionsIsVitalToWin")  // se alguém ganhar ao escolher a posição, ela é vital
+fun positionIsVitalToWin(linha: Int, col: Int): Boolean{  
+    val r1 = contabilizaLinha(linha, 0, 0)
+    val r2 = contabilizaColuna(0, col, 0)
+    val r3 = contabilizaDiagonal(linha, col)
+    if(r1 == -2){  
+        return true
+    }
+    if(r2 == -2)
+        return true
+    if( r3 == -2)
+        return true
+    return false
+}
+
 
 @JsName("contabilizaDiagonal")
 fun contabilizaDiagonal(linha: Int, col: Int): Int{  
@@ -410,7 +423,7 @@ fun positionHasEnemyAtDiagonal(linha: Int, col: Int): Boolean {
     }
 }
 
-@JsName("soundTrack")
+@JsName("soundTrack")  // Chama o menu de escolha de músicas
 fun soundTrack(){
     val options = document.getElementById("botoes")
     if(options != null){
@@ -448,7 +461,7 @@ fun soundTrack(){
 
 }
 
-@JsName("songChosen")
+@JsName("songChosen")  // Modifica a música a ser tocada
 fun songChosen(song:String){
     val songControl = document.getElementById("song-control")
     val restart = document.getElementById("botaoRestart")
