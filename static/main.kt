@@ -42,8 +42,7 @@ fun jogar(vsJarvis: Boolean) {
 var vezJogada: Int = 1 
 
 @JsName("botaoPressionado")
-fun botaoPressionado(id:String, vsJarvis: Boolean){   // Recebe a ID do botão clicado e uma boolean
-// correspondente ao modo de jogo escolhido.
+fun botaoPressionado(id:String, vsJarvis: Boolean){   // Recebe a ID do botão clicado e uma boolean correspondente ao modo de jogo escolhido.
     val status = document.getElementById("status")
     val botao = document.getElementById(id) as HTMLButtonElement
     val linha = id[1].code- 48
@@ -56,7 +55,7 @@ fun botaoPressionado(id:String, vsJarvis: Boolean){   // Recebe a ID do botão c
             botao.disabled = true // desabilitar o botão
             if(status != null)
                 status.innerHTML = "Vez de jogador 2(O)"
-            if(vsJarvis && !fimDeJogo()){   
+            if(vsJarvis && !fimDeJogo()){   //Caso o modo seja o single-player, a função de jogada da IA (que é tratada como 'player2') é chamada
                 jarvis()
             }
         } else{
@@ -103,7 +102,7 @@ fun vencedor(linha: Int, coluna: Int, vsJarvis: Boolean){
     }
 }
 
-@JsName("resetaBoardGOTOMENU")
+@JsName("resetaBoardGOTOMENU") // Função chamada para voltar ao Menu
 fun resetaBoardGOTOMENU(linha: Int, col: Int){
     if(col <= 2 && linha <=2){
         board[linha][col] = 0
@@ -140,7 +139,7 @@ fun reset(){
 
 }
 
-@JsName("resetaBoard")
+@JsName("resetaBoard") // Função chamada para jogar novamente no mesmo modo de jogo
 fun resetaBoard(linha: Int, col: Int, vsJarvis:Boolean){
     if(col <= 2 && linha <=2){
         board[linha][col] = 0
@@ -153,12 +152,17 @@ fun resetaBoard(linha: Int, col: Int, vsJarvis:Boolean){
              jogar(vsJarvis)
 }
 
-@JsName("fimDeJogo")
+@JsName("fimDeJogo") // Função que verifica as possibilidades de finalização do jogo
 fun fimDeJogo(): Boolean{
     return (verifica() || verificaVelha(0))
 }
 
-@JsName("verifica")
+ /* As posições do tabuleiro recebem o valor de 0, caso vazias; 1, caso contenha um X;
+     e -1 caso contenham O. Portanto, uma linha/coluna/diagonal que tenha valor de -3 ou 3 
+     é uma linha/coluna/diagonal completa.
+    */
+
+@JsName("verifica") //Função que verifica as possibilidades de vitória
 fun verifica(): Boolean{
     if(verificaDiagonais())
         return true
@@ -169,12 +173,9 @@ fun verifica(): Boolean{
     return false
 }
 
-@JsName("verificaLinhas")
+
+@JsName("verificaLinhas") // Verifica o somatório das linhas e retorna true caso exista uma vitória em uma das linhas do tabuleiro
 fun verificaLinhas(linha: Int, col: Int, x: Int): Boolean { 
-    /* As posições do tabuleiro recebem o valor de 0, caso vazias; 1, caso contenha um X;
-     e -1 caso contenham O. Portanto, uma linha/coluna que tenha valor de -3 ou 3 é uma linha/coluna
-     completa.
-    */
     if(x == 3 || x == -3)
         return true
     if(col <= 2 && linha <=2){
@@ -187,7 +188,7 @@ fun verificaLinhas(linha: Int, col: Int, x: Int): Boolean {
     return false
 }
 
-@JsName("verificaColunas")
+@JsName("verificaColunas") // Verifica o somatório das colunas e retorna true caso exista uma vitória em uma das colunas do tabuleiro
 fun verificaColunas(linha: Int, col: Int, x: Int): Boolean {
     if(x == 3 || x == -3)
         return true
@@ -201,7 +202,7 @@ fun verificaColunas(linha: Int, col: Int, x: Int): Boolean {
     return false
 }
 
-@JsName("verificaDiagonais")
+@JsName("verificaDiagonais") // Verifica o somatório das diagonais e retorna true caso exista uma vitória em uma das diagonais do tabuleiro
 fun verificaDiagonais(): Boolean {
     val d1: Int = board[0][0] + board[1][1] + board[2][2]
     val d2: Int = board[0][2] + board[1][1] + board[2][0]
@@ -210,7 +211,7 @@ fun verificaDiagonais(): Boolean {
     return false
 }
 
-@JsName("verificaVelha")   // verifica o empate
+@JsName("verificaVelha")   // Verifica a possibilidade de empate
 fun verificaVelha(i: Int): Boolean {    
     if(i < 9){
         val doc = document.getElementsByClassName("bts").item(i) 
@@ -311,7 +312,7 @@ fun jarvisBoardAnalysis(id: String):Int{
     return score
 }
 
-@JsName("positionsIsVitalToStopPlayer")  // se alguém ganhar ao escolher a posição, ela é vital
+@JsName("positionsIsVitalToStopPlayer")  // Se o jogador ganhar ao escolher a posição, ela é vital para a IA impedir seu adversário
 fun positionsIsVitalToStopPlayer(linha: Int, col: Int): Boolean{  
     val r1 = contabilizaLinha(linha, 0, 0)
     val r2 = contabilizaColuna(0, col, 0)
@@ -326,7 +327,7 @@ fun positionsIsVitalToStopPlayer(linha: Int, col: Int): Boolean{
     return false
 }
 
-@JsName("positionsIsVitalToWin")  // se alguém ganhar ao escolher a posição, ela é vital
+@JsName("positionsIsVitalToWin")  // Se a IA ganhar ao escolher a posição, ela é vital para vencer
 fun positionIsVitalToWin(linha: Int, col: Int): Boolean{  
     val r1 = contabilizaLinha(linha, 0, 0)
     val r2 = contabilizaColuna(0, col, 0)
@@ -342,7 +343,7 @@ fun positionIsVitalToWin(linha: Int, col: Int): Boolean{
 }
 
 
-@JsName("contabilizaDiagonal")
+@JsName("contabilizaDiagonal") // Retorna o somatório das diagonais
 fun contabilizaDiagonal(linha: Int, col: Int): Int{  
     if(linha == 1 && col == 1){
         val x = board[0][0] + board[2][2]
@@ -365,7 +366,7 @@ fun contabilizaDiagonal(linha: Int, col: Int): Int{
 }
 
 @JsName("contabilizaLinha")
-fun contabilizaLinha(linha: Int, col: Int, res: Int): Int{   // retorna o somatório da linha
+fun contabilizaLinha(linha: Int, col: Int, res: Int): Int{   // Retorna o somatório da linha
     if(col <= 2){
         val x = board[linha][col] 
         return contabilizaLinha(linha, col + 1, x + res)
@@ -374,7 +375,7 @@ fun contabilizaLinha(linha: Int, col: Int, res: Int): Int{   // retorna o somat�
 }
 
 @JsName("contabilizaColuna")
-fun contabilizaColuna(linha: Int, col: Int, res: Int): Int { // retorna o somatório da coluna
+fun contabilizaColuna(linha: Int, col: Int, res: Int): Int { // Retorna o somatório da coluna
     if(linha <= 2){
         val x = board[linha][col]
         return contabilizaColuna(linha + 1, col, x + res)
@@ -382,7 +383,7 @@ fun contabilizaColuna(linha: Int, col: Int, res: Int): Int { // retorna o somat�
     return res
 }
 
-@JsName("positionHasEnemyAtLine")
+@JsName("positionHasEnemyAtLine") // Verifica se existe alguma casa já escolhida pelo player na mesma linha
 fun positionHasEnemyAtLine(linha: Int, col: Int):Boolean{
     if(board[linha][col] == 1)
         return true
@@ -392,7 +393,7 @@ fun positionHasEnemyAtLine(linha: Int, col: Int):Boolean{
 
 }
 
-@JsName("positionHasEnemyAtColumn")
+@JsName("positionHasEnemyAtColumn") // Verifica se existe alguma casa já escolhida pelo player na mesma coluna
 fun positionHasEnemyAtColumn(linha: Int, col: Int):Boolean{
     if(board[linha][col] == 1)
         return true
@@ -402,7 +403,7 @@ fun positionHasEnemyAtColumn(linha: Int, col: Int):Boolean{
 
 }
 
-@JsName("positionHasEnemyAtDiagonal")
+@JsName("positionHasEnemyAtDiagonal") // Verifica se existe alguma casa já escolhida pelo player na mesma diagonal
 fun positionHasEnemyAtDiagonal(linha: Int, col: Int): Boolean {
     if (linha == 1 || col == 1){
         if(board[0][0] == 1 || board[2][2] == 1 || board[0][2] == 1 || board[2][0] == 1)
